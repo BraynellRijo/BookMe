@@ -1,0 +1,112 @@
+<main class="bg-surface relative w-full">
+  <!-- Hero Section -->
+  <section class="min-h-screen px-8 flex flex-col justify-center pt-20">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+      <div class="max-w-xl">
+        <span class="inline-block px-4 py-2 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed text-xs font-bold tracking-widest uppercase mb-6">
+          Conviértete en Anfitrión
+        </span>
+        <h1 class="font-headline text-[3.5rem] leading-[1.1] tracking-[-0.02em] font-extrabold text-on-surface mb-6">
+          Pon tu espacio en BookMe
+        </h1>
+        <p class="text-xl text-on-surface-variant leading-relaxed mb-10">
+          Abre las puertas de tu propiedad a viajeros que valoran el diseño, la calma y la conexión auténtica.
+        </p>
+        <button (click)="startHosting()" [disabled]="isSubmitting" class="bg-primary text-on-primary px-8 py-4 rounded-md font-medium text-lg hover:bg-primary-container transition-colors duration-300 shadow-lg shadow-primary/10 flex items-center justify-center gap-2">
+          <span *ngIf="!isSubmitting">Comenzar a hospedar</span>
+          <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </button>
+      </div>
+      <div class="relative h-[600px] w-full rounded-xl overflow-hidden shadow-2xl shadow-primary/5">
+        <img alt="Villa tropical" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjL_eA9Iiur6Pt8JmzOnr4x2UuZUd6K3yu10PEf6wKp068hgKuwM7cVygt4JJ2z7jCYy__P3klOFYLN8Y6Wxwpc8yA3CNfRdmOeODeSa_P-E-QIZsRw9Z5gQyGVPzVzN8_-ytNHtdvGBXJ69uAmHy5iL8LZSXOMnv9vy4y7Rj5gzbdeQ3PDVoaKwfZjDLOtCQSr0x4Q3bopahcRKKaQTCwp60gm2v2tzwbvzqQvFvxQ4QDeOIEsOilJVw2Cjpdz235wGUBV-2P0KV4"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Earnings Simulator -->
+  <section class="snap-section bg-surface-container-low" id="earnings">
+    <div class="max-w-[1000px] mx-auto px-8 text-center w-full" data-aos="fade-up">
+      <h2 class="font-headline text-4xl font-bold mb-4">Gana hasta $3,450 por mes</h2>
+      <p class="text-lg text-on-surface-variant mb-12 font-body">Estimación basada en propiedades similares en tu área.</p>
+      <div class="bg-surface-container-lowest p-8 rounded-xl shadow-lg shadow-on-surface/5 flex flex-col md:flex-row gap-6 items-center justify-center w-full" data-aos="fade-up" data-aos-delay="200">
+        <div class="w-full md:w-1/3 text-left">
+          <label class="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Ubicación</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+            <input class="w-full bg-surface-variant border-none rounded-t-md border-b border-outline focus:border-b-2 focus:border-primary pl-12 pr-4 py-3 text-on-surface focus:ring-0 transition-all font-body" type="text" value="Ciudad de México"/>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 text-left">
+          <label class="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Tipo de espacio</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">home</span>
+            <select class="w-full bg-surface-variant border-none rounded-t-md border-b border-outline focus:border-b-2 focus:border-primary pl-12 pr-4 py-3 text-on-surface focus:ring-0 transition-all appearance-none font-body">
+              <option>Alojamiento entero</option>
+              <option>Habitación privada</option>
+            </select>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 text-left">
+          <label class="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Capacidad</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">group</span>
+            <select class="w-full bg-surface-variant border-none rounded-t-md border-b border-outline focus:border-b-2 focus:border-primary pl-12 pr-4 py-3 text-on-surface focus:ring-0 transition-all appearance-none font-body">
+              <option>4 huéspedes</option>
+              <option>2 huéspedes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section class="snap-section bg-surface" id="safety">
+    <div class="max-w-[1440px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+      <div class="relative h-[500px] w-full rounded-xl overflow-hidden order-2 lg:order-1" data-aos="fade-right">
+        <img alt="Interior elegante" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwDk2zwlS4VGSpdoLWl8_BgPVUd12ymn3-01gqXKxVlfEFiWlaP9ZiSdhHUmuSh8r_bE2CNq0kmKPbB8JsYMDhy68fg6hdNuuz9Fp0ngBSLvauTgcino41UDcq3LjNIVZL_cNLQcPNxLH_5jWfT4S7wbXpIvEw2WzzcPUXXMqmyZzP_V-BQEF8KdIF9VS-V5LVVh5FKuwQ5fjJpNDHEQL30ixxgX0_x9lfnxsGp5us9-pkphwa0al__OCa9Y8VjWEtCbHvCpTLddov"/>
+      </div>
+      <div class="order-1 lg:order-2" data-aos="fade-left">
+        <h2 class="font-headline text-4xl font-bold mb-6 text-primary">Protección Editorial</h2>
+        <p class="text-xl text-on-surface-variant mb-10 leading-relaxed font-body">
+          Hospeda con total tranquilidad. Nuestra protección integral está diseñada para cuidar de tu propiedad y de ti.
+        </p>
+        <div class="space-y-8">
+          <div class="flex gap-4" data-aos="fade-left" data-aos-delay="100">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">shield</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">Protección contra daños</h3>
+              <p class="text-on-surface-variant font-body">Cobertura hasta $3M USD por daños a tu propiedad.</p>
+            </div>
+          </div>
+          <div class="flex gap-4" data-aos="fade-left" data-aos-delay="200">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">verified_user</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold mb-2">Seguro de responsabilidad</h3>
+              <p class="text-on-surface-variant font-body">Protección integral en cada estancia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="snap-section bg-surface py-32 flex flex-col items-center justify-center" id="cta">
+    <div class="text-center" data-aos="fade-up">
+      <h2 class="font-headline text-5xl font-bold mb-10 text-on-surface">
+        ¿Listo para empezar?
+      </h2>
+      <button (click)="startHosting()" [disabled]="isSubmitting" class="bg-[#76321c] text-white px-10 py-4 rounded-lg font-bold text-lg transition-all shadow-[0_10px_30px_rgba(118,50,28,0.3)] hover:brightness-110 active:scale-95 flex items-center justify-center gap-2 mx-auto">
+        <span *ngIf="!isSubmitting">Comenzar a hospedar ahora</span>
+        <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+      </button>
+    </div>
+  </section>
+</main>
+

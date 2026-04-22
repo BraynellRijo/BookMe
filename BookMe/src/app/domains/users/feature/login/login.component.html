@@ -1,0 +1,74 @@
+<app-auth-layout tagline="Step into a curated world where luxury meets serenity. Your next escape is just a login away.">
+
+  <!-- ─── Header ────────────────────────────────────── -->
+  <div class="form-header">
+    <h2 class="form-title">Bienvenido</h2>
+    <p class="form-subtitle">Inicia sesión para acceder a tu santuario.</p>
+  </div>
+
+  <!-- ─── Server Error Alert ────────────────────────── -->
+  @if (serverError()) {
+    <div class="server-error" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ serverError() }}</span>
+    </div>
+  }
+
+  <!-- ─── Login Form ────────────────────────────────── -->
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form" id="login-form">
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="tu@email.com" id="login-email" />
+      <mat-icon matPrefix>mail_outline</mat-icon>
+      @if (loginForm.controls.email.hasError('required')) {
+        <mat-error>El correo es obligatorio</mat-error>
+      } @else if (loginForm.controls.email.hasError('email')) {
+        <mat-error>Ingresa un correo válido</mat-error>
+      } @else if (loginForm.controls.email.hasError('serverError')) {
+        <mat-error>{{ loginForm.controls.email.getError('serverError') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password"
+             [type]="hidePassword() ? 'password' : 'text'"
+             placeholder="••••••••"
+             id="login-password" />
+      <mat-icon matPrefix>lock_outline</mat-icon>
+      <button mat-icon-button matSuffix type="button"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="hidePassword() ? 'Mostrar contraseña' : 'Ocultar contraseña'">
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (loginForm.controls.password.hasError('required')) {
+        <mat-error>La contraseña es obligatoria</mat-error>
+      } @else if (loginForm.controls.password.hasError('minlength')) {
+        <mat-error>Mínimo 6 caracteres</mat-error>
+      } @else if (loginForm.controls.password.hasError('serverError')) {
+        <mat-error>{{ loginForm.controls.password.getError('serverError') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-options">
+      <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="isLoading()" id="login-submit">
+      @if (isLoading()) {
+        <span class="spinner"></span>
+        Ingresando...
+      } @else {
+        Iniciar Sesión
+      }
+    </button>
+  </form>
+
+  <!-- ─── Register Link ─────────────────────────────── -->
+  <p class="auth-switch">
+    ¿Aún no eres parte de la colección?
+    <a routerLink="/auth/register" class="switch-link">Crear cuenta</a>
+  </p>
+
+</app-auth-layout>

@@ -1,0 +1,36 @@
+.category-item {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.category-item:hover .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+  transform: translateY(-2px);
+}
+
+.active-cat {
+  opacity: 1;
+  border-bottom-color: var(--md-sys-color-primary);
+}
+
+.active-cat .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.inactive-cat {
+  opacity: 0.6;
+}
+
+.inactive-cat:hover {
+  opacity: 1;
+}
+
+/* Scrollbar hiding while keeping functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,213 @@
+@use '../../ui/design-tokens' as t;
+
+// ─── Form Header ──────────────────────────────────────────────
+.form-header {
+  margin-bottom: t.$spacing-xl;
+}
+
+.form-title {
+  font-family: t.$font-headline;
+  font-weight: 700;
+  font-size: 2rem;
+  color: t.$primary;
+  letter-spacing: -0.02em;
+  margin: 0 0 t.$spacing-xs;
+}
+
+.form-subtitle {
+  font-family: t.$font-body;
+  font-size: 1rem;
+  color: t.$on-surface-variant;
+  line-height: 1.6;
+  margin: 0;
+}
+
+// ─── Server Error ─────────────────────────────────────────────
+.server-error {
+  display: flex;
+  align-items: center;
+  gap: t.$spacing-sm;
+  background: t.$error-container;
+  color: t.$error;
+  padding: t.$spacing-md t.$spacing-lg;
+  border-radius: t.$radius-md;
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  margin-bottom: t.$spacing-lg;
+  animation: slideDown 0.3s ease-out;
+
+  mat-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Auth Form ────────────────────────────────────────────────
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-sm;
+}
+
+// ─── Material Form Field Overrides ────────────────────────────
+// Following the Terra & Tide editorial: soft backgrounds, no borders,
+// ghost border on focus, tonal layering.
+.form-field {
+  width: 100%;
+
+  ::ng-deep {
+    .mdc-text-field--outlined {
+      background: t.$surface-container-high !important;
+      border-radius: t.$radius-md !important;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: transparent !important;
+    }
+
+    // Ghost border on focus
+    .mdc-text-field--focused {
+      background: t.$surface-container-lowest !important;
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: rgba(70, 100, 92, 0.2) !important;
+      }
+    }
+
+    // Error state
+    .mdc-text-field--invalid {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: rgba(186, 26, 26, 0.3) !important;
+      }
+    }
+
+    .mat-mdc-form-field-icon-prefix {
+      color: t.$on-surface-variant;
+      padding-right: t.$spacing-sm;
+    }
+
+    .mat-mdc-form-field-icon-suffix {
+      color: t.$on-surface-variant;
+    }
+
+    .mdc-floating-label {
+      font-family: t.$font-body !important;
+    }
+
+    input.mat-mdc-input-element {
+      font-family: t.$font-body !important;
+      color: t.$on-surface;
+    }
+  }
+}
+
+// ─── Form Options ─────────────────────────────────────────────
+.form-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: t.$spacing-sm;
+}
+
+.forgot-link {
+  font-family: t.$font-body;
+  font-size: 0.8125rem;
+  color: t.$secondary;
+  text-decoration: none;
+  transition: t.$transition-smooth;
+
+  &:hover {
+    color: t.$secondary-dark;
+    text-decoration: underline;
+  }
+}
+
+// ─── Primary Button ───────────────────────────────────────────
+// Gradient from primary to primary-container, XL roundedness.
+.btn-primary {
+  width: 100%;
+  padding: 0.875rem t.$spacing-xl;
+  background: t.$gradient-primary;
+  color: t.$on-primary;
+  border: none;
+  border-radius: t.$radius-xl;
+  font-family: t.$font-headline;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: t.$transition-smooth;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: t.$spacing-sm;
+  margin-top: t.$spacing-sm;
+  box-shadow: t.$shadow-card;
+
+  &:hover:not(:disabled) {
+    box-shadow: t.$shadow-ambient;
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: t.$shadow-card;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Spinner ──────────────────────────────────────────────────
+.spinner {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: t.$on-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ─── Auth Switch ──────────────────────────────────────────────
+.auth-switch {
+  text-align: center;
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  color: t.$on-surface-variant;
+  margin-top: t.$spacing-xl;
+}
+
+.switch-link {
+  color: t.$secondary;
+  font-weight: 600;
+  text-decoration: none;
+  transition: t.$transition-smooth;
+
+  &:hover {
+    text-decoration: underline;
+    color: t.$secondary-dark;
+  }
+}

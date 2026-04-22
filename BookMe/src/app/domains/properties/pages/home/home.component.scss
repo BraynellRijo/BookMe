@@ -1,0 +1,43 @@
+/* Tonal Layering & No-line rules applied */
+
+/* Ambient shadow for floating components */
+.shadow-ambient {
+  box-shadow: 0 20px 40px rgba(27, 28, 26, 0.06);
+}
+
+.border-ghost {
+  border: 1px solid rgba(193, 200, 196, 0.2);
+}
+
+/* Horizontal scroll styling */
+.hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.group\/slider {
+  &:hover {
+    .opacity-0 {
+      opacity: 1;
+    }
+  }
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* Hero Section bg simulation (soft gradient) */
+.hero-section {
+  background: linear-gradient(180deg, var(--sys-surface-container-low) 0%, var(--sys-surface) 100%);
+}

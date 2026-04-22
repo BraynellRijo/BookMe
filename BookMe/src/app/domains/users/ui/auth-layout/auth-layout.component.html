@@ -1,0 +1,28 @@
+<div class="auth-shell">
+  <!-- ─── Hero Side (Left) ─────────────────────────────── -->
+  <aside class="auth-hero" aria-hidden="true">
+    <div class="hero-overlay">
+      <div class="hero-brand">
+        <span class="brand-icon">🌿</span>
+        <h1 class="brand-name">BookMe</h1>
+      </div>
+      <p class="hero-tagline">{{ tagline() }}</p>
+    </div>
+  </aside>
+
+  <!-- ─── Form Side (Right) ────────────────────────────── -->
+  <main class="auth-content">
+    <div class="auth-content-inner">
+      <ng-content />
+    </div>
+
+    <footer class="auth-footer">
+      <span>© 2026 Braynell Rijo - BookMe</span>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </footer>
+  </main>
+</div>

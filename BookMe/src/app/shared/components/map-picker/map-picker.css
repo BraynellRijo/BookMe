@@ -1,0 +1,103 @@
+.map-container-wrapper {
+    width: 100%;
+}
+
+.map-view {
+    height: 100%;
+    width: 100%;
+}
+
+:host ::ng-deep {
+    .leaflet-container {
+        font-family: inherit;
+        background: #f8f9fa;
+    }
+
+    /* Custom Marker Styles */
+    .custom-map-marker {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .marker-container {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .marker-pin {
+        width: 24px;
+        height: 24px;
+        background: var(--color-primary);
+        border: 3px solid white;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+    }
+
+    .marker-pin::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .marker-pulse {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: var(--color-primary);
+        border-radius: 50%;
+        opacity: 0.3;
+        z-index: 1;
+        animation: pulse 2s infinite ease-out;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.5);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    /* Leaflet Attribution Styling */
+    .leaflet-control-attribution {
+        font-size: 8px !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(4px);
+        border-radius: 4px 0 0 0;
+    }
+
+    .leaflet-bar {
+        border: none !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+        
+        a {
+            background: white !important;
+            color: var(--color-on-surface) !important;
+            border-bottom: 1px solid var(--color-outline-variant) !important;
+            font-weight: bold !important;
+            
+            &:hover {
+                background: #f8f9fa !important;
+                color: var(--color-primary) !important;
+            }
+        }
+    }
+}

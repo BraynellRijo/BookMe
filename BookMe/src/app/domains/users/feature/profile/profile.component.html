@@ -1,0 +1,158 @@
+<!-- Main Content Layout -->
+<div class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-24">
+    <!-- Side Navigation (Editorial Style) -->
+    <aside class="md:w-64 shrink-0 flex flex-col gap-8 hidden md:flex">
+        <h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight leading-none">Perfil</h2>
+        <nav class="flex flex-col gap-4">
+            <a class="flex items-center gap-3 text-secondary font-headline font-bold text-lg" href="javascript:void(0)" [class.text-secondary]="activeTab === 'about'" [class.text-on-surface-variant]="activeTab !== 'about'" (click)="activeTab = 'about'">
+                <span>Acerca de mí</span>
+            </a>
+            <a class="flex items-center gap-3 font-headline text-lg transition-colors hover:text-primary" href="javascript:void(0)" [class.text-secondary]="activeTab === 'trips'" [class.text-on-surface-variant]="activeTab !== 'trips'" (click)="activeTab = 'trips'">
+                <span>Viajes anteriores</span>
+            </a>
+            <!-- <a class="flex items-center gap-3 font-headline text-lg transition-colors hover:text-primary" href="javascript:void(0)" [class.text-secondary]="activeTab === 'connections'" [class.text-on-surface-variant]="activeTab !== 'connections'" (click)="activeTab = 'connections'">
+                <span>Conexiones</span>
+            </a> -->
+        </nav>
+    </aside>
+
+    <!-- Main Column -->
+    <main class="flex-1 flex flex-col gap-16">
+        <!-- Mobile Title -->
+        <h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight leading-none md:hidden">Perfil</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <!-- Left Column: Profile Card & About -->
+            <div class="lg:col-span-7 flex flex-col gap-12">
+                <!-- Profile Card -->
+                <div class="flex items-center gap-8 bg-surface-container-low p-8 rounded-2xl relative overflow-hidden group">
+                    <div
+                        class="w-32 h-32 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 relative z-10 shadow-[0_20px_40px_rgba(27,28,26,0.06)]">
+                        <span class="text-5xl font-headline font-light">{{ currentUser()?.firstName?.charAt(0) || 'U' }}</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col gap-1">
+                        <h1 class="text-4xl font-headline font-bold text-primary tracking-tight">
+                            {{ currentUser()?.firstName }} {{ currentUser()?.lastName }}
+                        </h1>
+                        <p class="text-lg text-on-surface-variant font-body">
+                            {{ mainRole() }}
+                        </p>
+                    </div>
+                    <!-- Decorative blurry blob behind text -->
+                    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-surface-container-highest rounded-full blur-3xl opacity-50 pointer-events-none transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                </div>
+
+                <!-- About Me Section -->
+                <div class="flex flex-col gap-6" *ngIf="activeTab === 'about'">
+                    <div class="flex justify-between items-end border-b border-surface-container-high pb-4">
+                        <h3 class="text-2xl font-headline font-bold text-primary">Acerca de mí</h3>
+                        <button class="text-sm font-headline font-semibold text-secondary hover:text-primary transition-colors underline decoration-2 underline-offset-4">Editar</button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                        <!-- Detail Item -->
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-on-surface-variant shrink-0 mt-0.5">work</span>
+                            <div class="flex flex-col">
+                                <span class="text-sm font-body text-on-surface-variant">Mi trabajo</span>
+                                <span class="text-base font-body text-on-surface font-medium">Desarrollador de Software</span>
+                            </div>
+                        </div>
+                        <!-- Detail Item -->
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-on-surface-variant shrink-0 mt-0.5">school</span>
+                            <div class="flex flex-col">
+                                <span class="text-sm font-body text-on-surface-variant">Estudié en</span>
+                                <span class="text-base font-body text-on-surface font-medium">Instituto Tecnologico de las Americas</span>
+                            </div>
+                        </div>
+                        <!-- Detail Item -->
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-on-surface-variant shrink-0 mt-0.5">location_on</span>
+                            <div class="flex flex-col">
+                                <span class="text-sm font-body text-on-surface-variant">Vivo en</span>
+                                <span class="text-base font-body text-on-surface font-medium">Santo Domingo Este</span>
+                            </div>
+                        </div>
+                        <!-- Detail Item -->
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-on-surface-variant shrink-0 mt-0.5">language</span>
+                            <div class="flex flex-col">
+                                <span class="text-sm font-body text-on-surface-variant">Hablo</span>
+                                <span class="text-base font-body text-on-surface font-medium">Español, Inglés</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viajes Anteriores Preview Section -->
+                <div class="flex flex-col gap-6" *ngIf="activeTab === 'trips'">
+                    <div class="flex justify-between items-end border-b border-surface-container-high pb-4">
+                        <h3 class="text-2xl font-headline font-bold text-primary">Dónde he estado</h3>
+                        <a routerLink="/reservations" class="text-sm font-headline font-semibold text-secondary hover:text-primary transition-colors flex items-center gap-1 group">
+                            Ver historial completo
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4" *ngIf="!isLoadingTrips()">
+                        <div *ngFor="let trip of pastTrips()" class="group relative rounded-2xl overflow-hidden border border-outline-variant/30 hover:border-outline hover:shadow-lg transition-all cursor-pointer aspect-[4/3] flex flex-col justify-end">
+                            <!-- Background Image -->
+                            <img [src]="trip.listingImageUrl" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 z-0" [alt]="trip.listingTitle">
+                            
+                            <!-- Dark Gradient Overlay for readability -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
+                            
+                            <!-- Content -->
+                            <div class="relative z-20 p-5 flex flex-col pointer-events-none">
+                                <span class="text-white/80 font-body text-xs uppercase tracking-widest font-bold mb-1">{{ trip.checkInDate | date:'MMM yyyy' }}</span>
+                                <h4 class="text-white font-headline font-bold text-lg leading-tight mb-1">{{ trip.listingLocation }}</h4>
+                                <span class="text-white/90 font-body text-sm truncate">{{ trip.listingTitle }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading state -->
+                    <div *ngIf="isLoadingTrips()" class="py-12 flex justify-center items-center">
+                        <div class="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                    </div>
+                    
+                    <div *ngIf="!isLoadingTrips() && pastTrips().length === 0" class="py-12 flex flex-col items-center justify-center text-center bg-surface-container-lowest rounded-2xl border border-outline-variant/20 border-dashed">
+                        <span class="material-symbols-outlined text-4xl text-surface-dim mb-3">luggage</span>
+                        <p class="text-lg font-headline text-on-surface-variant font-bold">Aún no hay aventuras que mostrar</p>
+                        <p class="text-sm font-body text-surface-tint mt-1">Explora propiedades y empieza a llenar tu diario de viajes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Completa tu perfil CTA -->
+            <div class="lg:col-span-5 relative" *ngIf="activeTab === 'about'">
+                <div class="bg-surface-container-low p-8 rounded-2xl flex flex-col gap-6 sticky top-32">
+                    <div class="w-12 h-12 bg-surface-container-highest rounded-full flex items-center justify-center mb-2">
+                        <span class="material-symbols-outlined text-primary text-2xl">person_add</span>
+                    </div>
+                    <h4 class="text-2xl font-headline font-bold text-primary leading-tight">Completa tu perfil</h4>
+                    <p class="text-on-surface-variant font-body leading-relaxed">
+                        Es momento de presentarte al mundo. Añadir más detalles sobre ti ayuda a construir confianza con los anfitriones de nuestra comunidad curada.
+                    </p>
+                    <button class="mt-4 px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-headline font-bold text-lg hover:shadow-[0_20px_40px_rgba(27,28,26,0.12)] transition-all duration-300 w-full flex justify-center items-center gap-2">
+                        Empezar
+                        <span class="material-symbols-outlined text-xl">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section (Editorial Separated) -->
+        <div class="mt-12 flex flex-col gap-8" *ngIf="activeTab === 'about'">
+            <div class="border-t border-surface-container-high pt-16 flex justify-between items-center">
+                <h3 class="text-3xl font-headline font-bold text-primary tracking-tight">Evaluaciones escritas por mí</h3>
+            </div>
+            <div class="bg-surface-container-low/50 p-12 rounded-2xl border border-surface-container-highest border-dashed flex flex-col items-center justify-center gap-4 text-center min-h-[300px]">
+                <span class="material-symbols-outlined text-5xl text-surface-dim mb-2" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+                <p class="text-lg font-headline text-on-surface-variant">Aún no has escrito ninguna evaluación.</p>
+                <p class="text-sm font-body text-surface-tint max-w-md">Cuando compartas tu experiencia sobre una estancia, aparecerá aquí para inspirar a otros viajeros.</p>
+            </div>
+        </div>
+    </main>
+</div>

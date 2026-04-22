@@ -1,0 +1,153 @@
+<app-auth-layout tagline="Begin your journey through our curated digital gallery of extraordinary spaces.">
+
+  <!-- ─── Header ────────────────────────────────────── -->
+  <div class="form-header">
+    <h2 class="form-title">Crea tu cuenta</h2>
+    <p class="form-subtitle">Únete a nuestra exclusiva comunidad de viajeros.</p>
+  </div>
+
+  <!-- ─── Server Error Alert ────────────────────────── -->
+  @if (serverError()) {
+    <div class="server-error" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ serverError() }}</span>
+    </div>
+  }
+
+  <!-- ─── Register Form ─────────────────────────────── -->
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form" id="register-form">
+
+    <!-- Name Row -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="firstName" placeholder="Juan" id="register-first-name" />
+        <mat-icon matPrefix>person_outline</mat-icon>
+        @if (registerForm.controls.firstName.hasError('required')) {
+          <mat-error>El nombre es obligatorio</mat-error>
+        } @else if (registerForm.controls.firstName.hasError('minlength')) {
+          <mat-error>Mínimo 2 caracteres</mat-error>
+        } @else if (registerForm.controls.firstName.hasError('serverError')) {
+          <mat-error>{{ registerForm.controls.firstName.getError('serverError') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="lastName" placeholder="Pérez" id="register-last-name" />
+        <mat-icon matPrefix>person_outline</mat-icon>
+        @if (registerForm.controls.lastName.hasError('required')) {
+          <mat-error>El apellido es obligatorio</mat-error>
+        } @else if (registerForm.controls.lastName.hasError('minlength')) {
+          <mat-error>Mínimo 2 caracteres</mat-error>
+        } @else if (registerForm.controls.lastName.hasError('serverError')) {
+          <mat-error>{{ registerForm.controls.lastName.getError('serverError') }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Phone & Gender Row -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="phoneNumber" type="tel" placeholder="8091234567" id="register-phone" />
+        <mat-icon matPrefix>phone</mat-icon>
+        @if (registerForm.controls.phoneNumber.hasError('required')) {
+          <mat-error>El teléfono es obligatorio</mat-error>
+        } @else if (registerForm.controls.phoneNumber.hasError('pattern')) {
+          <mat-error>Solo dígitos (7-15 caracteres)</mat-error>
+        } @else if (registerForm.controls.phoneNumber.hasError('serverError')) {
+          <mat-error>{{ registerForm.controls.phoneNumber.getError('serverError') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Género</mat-label>
+        <mat-select formControlName="gender" id="register-gender">
+          <mat-option [value]="Gender.Masculino">Masculino</mat-option>
+          <mat-option [value]="Gender.Femenino">Femenino</mat-option>
+        </mat-select>
+        <mat-icon matPrefix>wc</mat-icon>
+        @if (registerForm.controls.gender.hasError('required')) {
+          <mat-error>Selecciona tu género</mat-error>
+        } @else if (registerForm.controls.gender.hasError('serverError')) {
+          <mat-error>{{ registerForm.controls.gender.getError('serverError') }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="tu@email.com" id="register-email" />
+      <mat-icon matPrefix>mail_outline</mat-icon>
+      @if (registerForm.controls.email.hasError('required')) {
+        <mat-error>El correo es obligatorio</mat-error>
+      } @else if (registerForm.controls.email.hasError('email')) {
+        <mat-error>Ingresa un correo válido</mat-error>
+      } @else if (registerForm.controls.email.hasError('serverError')) {
+        <mat-error>{{ registerForm.controls.email.getError('serverError') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password"
+             [type]="hidePassword() ? 'password' : 'text'"
+             placeholder="Mínimo 8 caracteres"
+             id="register-password" />
+      <mat-icon matPrefix>lock_outline</mat-icon>
+      <button mat-icon-button matSuffix type="button"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="hidePassword() ? 'Mostrar contraseña' : 'Ocultar contraseña'">
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (registerForm.controls.password.hasError('required')) {
+        <mat-error>La contraseña es obligatoria</mat-error>
+      } @else if (registerForm.controls.password.hasError('minlength')) {
+        <mat-error>Mínimo 8 caracteres</mat-error>
+      } @else if (registerForm.controls.password.hasError('serverError')) {
+        <mat-error>{{ registerForm.controls.password.getError('serverError') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Confirm Password -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Confirmar contraseña</mat-label>
+      <input matInput formControlName="confirmPassword"
+             [type]="hideConfirm() ? 'password' : 'text'"
+             placeholder="Repite tu contraseña"
+             id="register-confirm-password" />
+      <mat-icon matPrefix>lock_outline</mat-icon>
+      <button mat-icon-button matSuffix type="button"
+              (click)="toggleConfirmVisibility()"
+              [attr.aria-label]="hideConfirm() ? 'Mostrar contraseña' : 'Ocultar contraseña'">
+        <mat-icon>{{ hideConfirm() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (registerForm.controls.confirmPassword.hasError('required')) {
+        <mat-error>Confirma tu contraseña</mat-error>
+      } @else if (registerForm.controls.confirmPassword.hasError('passwordMismatch')) {
+        <mat-error>Las contraseñas no coinciden</mat-error>
+      } @else if (registerForm.controls.confirmPassword.hasError('serverError')) {
+        <mat-error>{{ registerForm.controls.confirmPassword.getError('serverError') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <button class="btn-primary" type="submit" [disabled]="isLoading()" id="register-submit">
+      @if (isLoading()) {
+        <span class="spinner"></span>
+        Creando cuenta...
+      } @else {
+        Crear cuenta
+      }
+    </button>
+  </form>
+
+  <!-- ─── Login Link ────────────────────────────────── -->
+  <p class="auth-switch">
+    ¿Ya tienes una cuenta?
+    <a routerLink="/auth/login" class="switch-link">Iniciar sesión</a>
+  </p>
+
+</app-auth-layout>

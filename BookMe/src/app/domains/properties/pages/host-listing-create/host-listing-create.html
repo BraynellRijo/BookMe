@@ -1,0 +1,416 @@
+<div class="min-h-screen bg-surface flex flex-col items-center pt-24 pb-12 px-6">
+
+  <!-- Host Wizard Current Progress View -->
+  <ng-container *ngIf="!isPublished">
+  <!-- Header -->
+  <div class="w-full max-w-4xl flex items-center justify-between mb-10">
+    <h1 class="text-3xl font-headline font-bold text-primary">Publica tu espacio</h1>
+    <button type="button" (click)="saveAndExit()" class="text-sm font-body font-medium text-on-surface-variant hover:text-primary transition-colors underline decoration-outline-variant underline-offset-4">Guardar y salir</button>
+  </div>
+
+  <!-- Main Wizard Container -->
+  <div class="w-full max-w-4xl flex flex-col md:flex-row gap-12 bg-surface-container-low rounded-[2rem] p-8 md:p-12 shadow-[0_20px_40px_rgba(27,28,26,0.03)] border border-outline-variant/20 relative overflow-hidden">
+    
+    <!-- Progress Indicator (Left Side) -->
+    <div class="w-full md:w-1/3 flex flex-col">
+      <h2 class="text-xl font-headline font-semibold text-primary mb-8">Paso {{currentStep}} de {{totalSteps}}</h2>
+      
+      <div class="flex flex-col gap-4 relative">
+        <!-- Progress Bar Background -->
+        <div class="absolute left-[11px] top-4 bottom-4 w-0.5 bg-outline-variant/30 hidden md:block"></div>
+        <!-- Progress Bar Active -->
+        <div class="absolute left-[11px] top-4 w-0.5 bg-secondary transition-all duration-500 hidden md:block" [style.height]="((currentStep - 1) / (totalSteps - 1)) * 100 + '%'"></div>
+
+        <!-- Step 1: General -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 1">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 1 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">1</div>
+          <span class="font-body text-sm font-medium text-on-surface">General</span>
+        </div>
+
+        <!-- Step 2: Ubicación -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 2">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 2 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">2</div>
+          <span class="font-body text-sm font-medium text-on-surface">Ubicación</span>
+        </div>
+
+        <!-- Step 3: Descripción -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 3">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 3 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">3</div>
+          <span class="font-body text-sm font-medium text-on-surface">Descripción</span>
+        </div>
+
+        <!-- Step 4: Capacidad -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 4">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 4 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">4</div>
+          <span class="font-body text-sm font-medium text-on-surface">Capacidad</span>
+        </div>
+
+        <!-- Step 5: Servicios -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 5">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 5 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">5</div>
+          <span class="font-body text-sm font-medium text-on-surface">Servicios</span>
+        </div>
+
+        <!-- Step 6: Precio -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 6">
+           <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 6 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">6</div>
+           <span class="font-body text-sm font-medium text-on-surface">Precio</span>
+        </div>
+
+        <!-- Step 7: Fotos -->
+        <div class="flex items-center gap-4 relative z-10 transition-opacity" [class.opacity-50]="currentStep < 7">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors" [ngClass]="currentStep >= 7 ? 'bg-secondary text-white' : 'bg-surface-container-highest text-on-surface-variant'">7</div>
+          <span class="font-body text-sm font-medium text-on-surface">Fotos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Content (Right Side) -->
+    <div class="flex-1 min-h-[400px]">
+      <form [formGroup]="listingForm" class="h-full flex flex-col justify-between">
+        
+        <div class="flex-1 w-full relative">
+          <!-- STEP 1: General -->
+          <div *ngIf="currentStep === 1" [@stepTransition] class="w-full absolute inset-0">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Dale un título a tu espacio</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Los nombres cortos funcionan mejor. Diviértete, podrás cambiarlo después.</p>
+             
+             <div class="flex flex-col gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-on-surface mb-2">Título de la propiedad</label>
+                  <input type="text" formControlName="title" placeholder="Stunning Beachfront Villa" 
+                         class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50">
+                  <span class="text-xs text-error mt-1" *ngIf="listingForm.get('title')?.touched && listingForm.get('title')?.invalid">El título es obligatorio.</span>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-on-surface mb-2">Tipo de propiedad</label>
+                  <select formControlName="propertyType" class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all appearance-none">
+                    <option value="Apartment">Apartment / Piso</option>
+                    <option value="House">House</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Townhouse">Townhouse</option>
+                    <option value="Cabin">Cabin</option>
+                    <option value="Cottage">Cottage</option>
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Chalet">Chalet</option>
+                    <option value="Guesthouse">Guesthouse</option>
+                    <option value="Hostel">Hostel</option>
+                    <option value="HotelRoom">Hotel Room</option>
+                    <option value="Resort">Resort</option>
+                    <option value="Treehouse">Treehouse</option>
+                    <option value="CamperRV">Camper / RV</option>
+                    <option value="Boat">Boat</option>
+                    <option value="Tent">Tent</option>
+                    <option value="Castle">Castle</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+             </div>
+          </div>
+
+          <!-- STEP 2: Ubicación -->
+          <div *ngIf="currentStep === 2" [@stepTransition] class="w-full absolute inset-0 pb-6 overflow-y-auto hide-scrollbar">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 items-start">
+              
+              <!-- Left: Map -->
+              <div class="flex flex-col ">
+                <app-map-picker #mapPicker 
+                  [initialLat]="listingForm.getRawValue().latitude || 18.48" 
+                  [initialLng]="listingForm.getRawValue().longitude || -69.93"
+                  (locationSelected)="onLocationSelected($event)"
+                  height="450px">
+                </app-map-picker>
+
+                <!-- Coordenadas Geográficas (Ultra Compact) -->
+                <div class="flex items-center gap-3 mt-3 opacity-50 px-1">
+                  <div class="flex-1 bg-surface-container rounded-lg px-2 py-1.5 border border-outline-variant/30 flex items-center justify-between">
+                    <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-tighter">Lat</span>
+                    <span class="text-[10px] font-mono text-on-surface">{{ listingForm.get('latitude')?.value | number:'1.4-4' }}</span>
+                  </div>
+                  <div class="flex-1 bg-surface-container rounded-lg px-2 py-1.5 border border-outline-variant/30 flex items-center justify-between">
+                    <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-tighter">Long</span>
+                    <span class="text-[10px] font-mono text-on-surface">{{ listingForm.get('longitude')?.value | number:'1.4-4' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Address Fields -->
+              <div class="bg-surface-container/30 px-5 py-4 rounded-2xl border border-outline-variant/10 transition-all duration-700"
+                   [class.field-highlight]="showLocationHighlight">
+                 <h4 class="text-xs font-headline font-bold text-primary border-b border-outline-variant/20 pb-2 mb-4 flex items-center gap-2 uppercase tracking-wide">
+                   <span class="material-symbols-outlined text-[16px]">location_on</span>
+                   Dirección
+                 </h4>
+
+                 <div class="space-y-3.5">
+                   <div>
+                     <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-wider">País</label>
+                     <input type="text" formControlName="country" placeholder="Mexico" 
+                            class="w-full px-3.5 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all text-xs font-medium">
+                   </div>
+                   
+                   <div>
+                     <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Ciudad</label>
+                     <input type="text" formControlName="city" placeholder="Tulum" 
+                            class="w-full px-3.5 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all text-xs font-medium">
+                   </div>
+
+                   <div>
+                      <label class="block text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Calle</label>
+                      <textarea formControlName="address" rows="2" placeholder="Street name and number" 
+                                class="w-full px-3.5 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all text-xs font-medium resize-none"></textarea>
+                   </div>
+                   
+                   <div class="flex items-start gap-2 pt-1">
+                      <span class="material-symbols-outlined text-secondary text-sm">auto_fix_high</span>
+                      <p class="text-[9px] text-on-surface-variant leading-tight">Los campos se actualizan automáticamente al mover el pin del mapa.</p>
+                   </div>
+                 </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- STEP 3: Descripción -->
+          <div *ngIf="currentStep === 3" [@stepTransition] class="w-full absolute inset-0">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Crea tu descripción</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Comparte qué hace que tu lugar sea especial.</p>
+             
+             <div>
+                <textarea formControlName="description" rows="6" placeholder="Enjoy this peaceful and centrally-located place..." class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"></textarea>
+                <span class="text-xs text-error mt-1" *ngIf="listingForm.get('description')?.touched && listingForm.get('description')?.invalid">La descripción debe tener al menos 20 caracteres.</span>
+             </div>
+          </div>
+
+          <!-- STEP 4: Capacidad -->
+          <div *ngIf="currentStep === 4" [@stepTransition] class="w-full absolute inset-0">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Comparte lo básico sobre tu espacio</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Podrás añadir más detalles después, como el tipo de cama.</p>
+             
+             <div class="flex flex-col gap-6">
+                <div class="flex items-center justify-between pb-6 border-b border-surface-container-highest">
+                  <span class="text-base font-body font-medium text-on-surface">Huéspedes</span>
+                  <input type="number" formControlName="maxGuests" class="w-24 text-center px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none" min="1">
+                </div>
+                <div class="flex items-center justify-between pb-6 border-b border-surface-container-highest">
+                  <span class="text-base font-body font-medium text-on-surface">Habitaciones</span>
+                  <input type="number" formControlName="bedroomsQuantity" class="w-24 text-center px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none" min="0">
+                </div>
+                <div class="flex items-center justify-between pb-6 border-b border-surface-container-highest">
+                  <span class="text-base font-body font-medium text-on-surface">Camas</span>
+                  <input type="number" formControlName="bedsQuantity" class="w-24 text-center px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none" min="1">
+                </div>
+                <div class="flex items-center justify-between pb-6">
+                  <span class="text-base font-body font-medium text-on-surface">Baños</span>
+                  <input type="number" formControlName="bathroomsQuantity" class="w-24 text-center px-4 py-2 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none" min="0">
+                </div>
+             </div>
+          </div>
+
+          <!-- STEP 5: Servicios -->
+          <div *ngIf="currentStep === 5" [@stepTransition] class="w-full absolute inset-0 overflow-y-auto hide-scrollbar pb-6">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Dile a tus huéspedes qué ofreces</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Podrás añadir más comodidades después de publicar el anuncio.</p>
+             
+             <!-- Loading State -->
+             <div *ngIf="isLoadingAmenities" class="flex flex-col items-center justify-center py-12 gap-3">
+               <div class="w-8 h-8 border-3 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+               <span class="text-sm font-body text-on-surface-variant">Cargando comodidades...</span>
+             </div>
+
+             <!-- Amenity Grid -->
+             <div *ngIf="!isLoadingAmenities" class="grid grid-cols-2 gap-4">
+                <div *ngFor="let am of amenityOptions" class="relative">
+                  <!-- Custom Checkbox Card -->
+                  <label class="flex flex-col gap-3 p-4 rounded-xl border border-outline-variant bg-surface hover:border-primary cursor-pointer transition-all group"
+                         [ngClass]="isAmenityChecked(am.id) ? 'border-secondary bg-secondary/5' : ''">
+                    <input type="checkbox" class="absolute opacity-0 w-0 h-0" [value]="am.id" [checked]="isAmenityChecked(am.id)" (change)="onCheckboxChange($event, am.id)">
+                    <!-- Fake Checkbox Icon -->
+                    <div class="w-5 h-5 rounded border border-outline flex items-center justify-center transition-colors group-hover:border-primary"
+                         [ngClass]="isAmenityChecked(am.id) ? 'border-secondary bg-secondary' : 'border-outline'">
+                       <span class="material-symbols-outlined text-[14px]" [ngClass]="isAmenityChecked(am.id) ? 'text-white' : 'text-transparent'">check</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span *ngIf="am.icon" class="material-symbols-outlined text-on-surface-variant text-lg">{{am.icon}}</span>
+                      <span class="font-body text-sm font-medium text-on-surface">{{am.name}}</span>
+                    </div>
+                  </label>
+                </div>
+             </div>
+
+             <!-- Empty State -->
+             <div *ngIf="!isLoadingAmenities && amenityOptions.length === 0" class="text-center py-12">
+               <span class="material-symbols-outlined text-4xl text-outline-variant">info</span>
+               <p class="text-sm text-on-surface-variant mt-2">No hay comodidades disponibles. Puedes continuar sin seleccionar ninguna.</p>
+             </div>
+          </div>
+
+          <!-- STEP 6: Precio -->
+          <div *ngIf="currentStep === 6" [@stepTransition] class="w-full absolute inset-0">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Ahora, fija tu precio</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Puedes cambiarlo en cualquier momento.</p>
+             
+             <div class="flex flex-col items-center justify-center py-10">
+                <div class="flex items-center text-6xl font-headline font-bold text-on-surface">
+                   <span>$</span>
+                   <input type="number" formControlName="pricePerNight" class="w-40 bg-transparent border-none focus:ring-0 text-center outline-none p-0 ml-2" placeholder="00" min="1">
+                </div>
+                <div class="text-on-surface-variant text-sm mt-4 font-body">Por noche</div>
+             </div>
+          </div>
+
+          <!-- STEP 7: Fotos -->
+          <div *ngIf="currentStep === 7" [@stepTransition] class="w-full absolute inset-0 overflow-y-auto hide-scrollbar pb-6">
+             <h3 class="text-2xl font-headline font-semibold text-primary mb-2">Añade algunas fotos de tu propiedad</h3>
+             <p class="text-sm font-body text-on-surface-variant mb-8">Necesitarás al menos 1 foto para comenzar. Podrás añadir más después.</p>
+             
+             <!-- Retry Alert if Step 2 failed -->
+             <div *ngIf="imageUploadError" class="mb-6 p-4 bg-error/10 border border-error/20 rounded-2xl flex items-start gap-4 animate-in fade-in slide-in-from-top-2">
+                <span class="material-symbols-outlined text-error mt-0.5">warning</span>
+                <div>
+                  <h4 class="text-sm font-bold text-error">Error al subir las imágenes</h4>
+                  <p class="text-xs text-on-surface-variant mt-1">La propiedad se creó correctamente, pero las imágenes no se subieron. Haz clic en el botón inferior para reintentar la subida de fotos.</p>
+                </div>
+             </div>
+             
+             <!-- Drag and Drop Area -->
+             <div class="w-full p-8 border-2 border-dashed border-outline-variant bg-surface rounded-2xl flex flex-col items-center justify-center gap-4 hover:bg-surface-container-high transition-colors relative cursor-pointer group">
+                <input type="file" multiple accept="image/*" (change)="onFileSelected($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                <div class="w-16 h-16 rounded-full bg-surface-container-high group-hover:bg-surface flex items-center justify-center transition-colors">
+                  <span class="material-symbols-outlined text-3xl text-on-surface-variant">photo_library</span>
+                </div>
+                <div class="text-center">
+                  <h4 class="text-base font-body font-semibold text-on-surface">Arrastra tus fotos aquí</h4>
+                  <p class="text-xs text-on-surface-variant mt-1">Elige al menos 1 foto</p>
+                </div>
+             </div>
+
+             <!-- Grid de Previsualización -->
+             <div *ngIf="previewUrls.length > 0" class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div *ngFor="let url of previewUrls; let i = index" class="relative aspect-square rounded-xl overflow-hidden group shadow-sm">
+                   <img [src]="url" class="w-full h-full object-cover">
+                   <button (click)="removeImage(i)" type="button" class="absolute top-2 right-2 w-8 h-8 bg-surface/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm z-20 tooltip">
+                      <span class="material-symbols-outlined text-[16px] text-error">delete</span>
+                   </button>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <!-- Botones de Navegación -->
+        <div class="w-full pt-8 mt-12 flex items-center justify-between border-t border-surface-container-highest z-20 bg-surface-container-low">
+           <button type="button" (click)="prevStep()" [class.invisible]="currentStep === 1" class="font-body font-semibold text-on-surface hover:bg-surface px-6 py-2.5 rounded-full transition-colors underline decoration-outline-variant underline-offset-4">
+             Atrás
+           </button>
+
+           <button *ngIf="currentStep < totalSteps" type="button" (click)="nextStep()" class="btn-primary min-w-[120px] py-3 rounded-full text-white font-body font-medium text-sm transition-colors">
+             Siguiente
+           </button>
+
+            <button *ngIf="currentStep === totalSteps" type="button" (click)="submitListing()" [disabled]="isSubmitting" 
+                     class="btn-explore px-10 py-3 rounded-full text-white font-body font-medium text-sm transition-all flex items-center gap-2"
+                     [class.bg-error]="imageUploadError">
+              <span *ngIf="!isSubmitting">
+                {{ imageUploadError ? 'Reintentar subida' : (createdListingId ? 'Publicando...' : 'Publicar anuncio') }}
+              </span>
+              <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+  </ng-container>
+
+  <!-- Success Confirmation Screen -->
+  <ng-container *ngIf="isPublished">
+    <div class="w-full min-h-[calc(100vh-140px)] flex flex-col lg:flex-row items-center gap-12 lg:gap-0 animate-in slide-in-from-bottom-8 fade-in duration-1000 overflow-hidden">
+      
+      <!-- Left side: Text and Actions -->
+      <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left px-6 lg:pl-12 lg:pr-24">
+        
+        <!-- Batch "Publicación Exitosa" -->
+        <div class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full mb-6 border border-primary/20">
+          <span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+          <span class="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">Publicación Exitosa</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-headline font-black text-primary tracking-tight leading-[1.1] mb-8">
+          ¡Felicidades!<br/>
+          <span class="text-on-surface">Tu santuario está <span class="text-primary italic">en vivo.</span></span>
+        </h1>
+        
+        <p class="text-lg md:text-xl font-body text-on-surface-variant max-w-xl mb-12 leading-relaxed">
+          Tu propiedad ya es visible para viajeros de todo el mundo. Prepárate para recibir a tus primeros huéspedes y ofrecerles una experiencia inolvidable.
+        </p>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-6 w-full justify-center lg:justify-start">
+          <button [routerLink]="['/properties', createdListingId]" class="btn-explore px-10 py-5 bg-primary text-white font-headline font-bold text-lg rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 flex items-center justify-center gap-3">
+            Ver mi anuncio
+          </button>
+          
+          <button [routerLink]="['/host/dashboard']" class="relative group px-2 py-1 flex items-center justify-center">
+            <span class="text-on-surface font-headline font-bold text-lg group-hover:text-primary transition-colors">Ir al panel de control</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right side: Dark Graphic with Floating Card -->
+      <div class="w-full lg:w-1/2 h-full flex flex-center relative px-6 lg:px-0">
+        <!-- Background Graphic -->
+        <div class="w-full aspect-[4/3] lg:aspect-square bg-[#1a1b1a] rounded-[3rem] lg:rounded-none lg:rounded-l-[5rem] overflow-hidden relative shadow-2xl">
+          <div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]"></div>
+          
+          <!-- Abstract gradients for depth -->
+          <div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-primary/20 blur-[100px]"></div>
+          <div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[80px]"></div>
+
+          <!-- The Background Image (Darker version of property or abstract) -->
+          <img *ngIf="previewUrls.length > 0" [src]="previewUrls[0]" class="w-full h-full object-cover opacity-30 grayscale contrast-125">
+          
+          <!-- Floating Preview Card -->
+          <div class="absolute inset-0 flex items-center justify-center p-8">
+            <div class="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-[2.5rem] p-6 shadow-[0_40px_80px_rgba(0,0,0,0.4)] animate-float border border-white/20">
+              <div class="relative aspect-video rounded-3xl overflow-hidden mb-6">
+                <img *ngIf="previewUrls.length > 0" [src]="previewUrls[0]" class="w-full h-full object-cover">
+                <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-lg">
+                  <span class="material-symbols-outlined text-xl">star</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-1">
+                <h3 class="text-2xl font-headline font-black text-primary leading-tight truncate">
+                  {{listingForm.get('title')?.value}}
+                </h3>
+                <div class="flex items-center gap-2 text-on-surface-variant font-body text-sm mb-4">
+                  <span class="material-symbols-outlined text-sm">location_on</span>
+                  {{listingForm.get('city')?.value}}, {{listingForm.get('country')?.value}}
+                </div>
+
+                <div class="flex items-center justify-between mt-auto pt-6 border-t border-outline-variant/30">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Precio</span>
+                    <p class="text-xl font-headline font-black text-primary">
+                      ${{listingForm.get('pricePerNight')?.value}}<span class="text-sm font-medium text-on-surface-variant">/noche</span>
+                    </p>
+                  </div>
+                  <div class="bg-surface-container px-4 py-2 rounded-2xl flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm text-primary">group</span>
+                    <span class="text-xs font-bold text-on-surface">{{listingForm.get('maxGuests')?.value}} Huéspedes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

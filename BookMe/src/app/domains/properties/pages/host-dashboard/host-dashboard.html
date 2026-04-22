@@ -1,0 +1,198 @@
+<div class="min-h-screen bg-surface px-6 md:px-12 lg:px-24 pt-32 pb-16">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-headline font-extrabold text-primary mb-4 tracking-tight">Panel de Control</h1>
+        <p class="text-on-surface-variant font-body text-lg max-w-2xl">Gestiona tus publicaciones, revisa tus ingresos y haz crecer tu comunidad editorial.</p>
+      </div>
+      <button routerLink="/host/create" class="btn-explore px-8 py-4 rounded-2xl text-white font-headline font-bold text-lg shadow-xl shadow-primary/20 flex items-center gap-3 transition-transform hover:scale-105 active:scale-95">
+        <span class="material-symbols-outlined">add_circle</span>
+        Publicar nueva propiedad
+      </button>
+    </div>
+
+    <!-- Stats Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <!-- Total Revenue -->
+      <div class="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/30 flex flex-col gap-2 group hover:bg-primary transition-all duration-500">
+        <span class="text-on-surface-variant font-body text-sm font-bold uppercase tracking-widest group-hover:text-white/80 transition-colors">Ingresos Totales</span>
+        <div class="flex items-end gap-1">
+          <span class="text-4xl font-headline font-black text-primary group-hover:text-white transition-colors">${{stats().totalRevenue}}</span>
+        </div>
+      </div>
+      
+      <!-- Active Bookings -->
+      <div class="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/30 flex flex-col gap-2 hover:shadow-lg transition-all duration-300">
+        <span class="text-on-surface-variant font-body text-sm font-bold uppercase tracking-widest">Reservas Activas</span>
+        <span class="text-4xl font-headline font-black text-primary">{{stats().activeBookings}}</span>
+      </div>
+
+      <!-- Avg Rating -->
+      <div class="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/30 flex flex-col gap-2 hover:shadow-lg transition-all duration-300">
+        <span class="text-on-surface-variant font-body text-sm font-bold uppercase tracking-widest">Calificación Media</span>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-3xl">star</span>
+          <span class="text-4xl font-headline font-black text-primary">{{stats().avgRating}}</span>
+        </div>
+      </div>
+
+      <!-- Properties -->
+      <div class="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/30 flex flex-col gap-2 hover:shadow-lg transition-all duration-300">
+        <span class="text-on-surface-variant font-body text-sm font-bold uppercase tracking-widest">Propiedades Totales</span>
+        <span class="text-4xl font-headline font-black text-primary">{{stats().totalProperties}}</span>
+      </div>
+    </div>
+
+    <!-- Properties Management List -->
+    <div class="bg-surface-container-lowest rounded-[2.5rem] border border-outline-variant/20 p-8 md:p-12 shadow-[0_20px_40px_rgba(27,28,26,0.02)]">
+      <div class="flex items-center justify-between mb-10 pb-6 border-b border-outline-variant/30">
+        <div class="flex items-center gap-4">
+          <h2 class="text-2xl font-headline font-bold text-primary">Mis Publicaciones</h2>
+          <div *ngIf="isLoading()" class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full">
+            <div class="w-3 h-3 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+            <span class="text-[10px] font-bold text-primary uppercase">Cargando...</span>
+          </div>
+        </div>
+        
+        <div class="flex gap-4">
+          <button (click)="refreshListings()" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all" title="Refrescar lista">
+            <span class="material-symbols-outlined" [class.animate-spin]="isLoading()">refresh</span>
+          </button>
+          <button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined">filter_list</span>
+          </button>
+          <button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined">search</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6">
+        <!-- Property Row -->
+        <div *ngFor="let prop of properties()" class="group flex flex-col rounded-3xl overflow-hidden border border-outline-variant/30 bg-surface hover:border-primary hover:shadow-xl hover:shadow-primary/5 transition-all">
+          
+          <div class="w-full flex flex-col md:flex-row items-center gap-8 p-6">
+          <!-- Thumbnail -->
+          <div class="w-full md:w-48 aspect-[4/3] rounded-2xl overflow-hidden shrink-0">
+            <img [src]="prop.imageUrl" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          </div>
+
+          <!-- Info -->
+          <div class="flex-1 flex flex-col justify-center text-center md:text-left overflow-hidden">
+            <div class="flex items-center justify-center md:justify-start gap-4 mb-3">
+              <!-- Toggle Switch for IsActive -->
+              <label class="flex items-center cursor-pointer group" title="Habilitar/Deshabilitar propiedad">
+                <div class="relative">
+                  <input type="checkbox" class="sr-only" [checked]="prop.isActive" (change)="toggleStatus(prop)">
+                  <div class="block w-10 h-6 rounded-full transition-colors duration-300"
+                       [ngClass]="prop.isActive ? 'bg-secondary' : 'bg-surface-container-highest'"></div>
+                  <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 shadow-sm"
+                       [class.translate-x-4]="prop.isActive"></div>
+                </div>
+                <span class="ml-2 text-xs font-bold font-body uppercase tracking-widest transition-colors"
+                      [ngClass]="prop.isActive ? 'text-secondary' : 'text-on-surface-variant'">
+                  {{prop.isActive ? 'Activa' : 'Pausada'}}
+                </span>
+              </label>
+
+              <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+              <span class="text-xs font-body text-on-surface-variant flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">location_on</span>
+                {{prop.location}}
+              </span>
+            </div>
+            <h3 class="text-2xl font-headline font-bold text-on-surface mb-2 truncate group-hover:text-primary transition-colors">{{prop.title}}</h3>
+            <p class="text-primary font-body font-bold text-lg">${{prop.price}} <span class="text-xs font-normal text-on-surface-variant">/ noche</span></p>
+          </div>
+
+          <!-- Actions Row -->
+          <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-4 md:mt-0 xl:min-w-fit">
+            
+            <button (click)="openBlockDates(prop.id)" title="Bloquear fechas" class="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant text-on-surface-variant hover:bg-surface-container hover:text-primary hover:border-primary transition-all">
+              <span class="material-symbols-outlined">event_busy</span>
+            </button>
+
+            <button [routerLink]="['/host/edit', prop.id]" class="px-6 py-3 rounded-xl border border-outline text-on-surface font-bold text-sm hover:bg-surface-container hover:border-outline-variant transition-colors flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+              Editar
+            </button>
+            <button [routerLink]="['/properties', prop.id]" class="px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm hover:bg-secondary transition-colors shadow-lg shadow-primary/10 flex items-center justify-center gap-2">
+              Ver detalles
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </div>
+          </div>
+
+          <!-- Inline Calendar Block Expansion -->
+          <div *ngIf="blockingPropertyId() === prop.id" class="w-full bg-surface-container-lowest p-8 md:px-12 border-t border-outline-variant/30 animate-in slide-in-from-top-4 duration-500 relative">
+            <button (click)="cancelBlockDates()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-2 z-10 transition-colors">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="max-w-2xl mx-auto flex flex-col pt-4 pb-2">
+              <div class="flex items-center justify-between mb-8">
+                <h3 class="text-xl font-headline font-bold text-primary flex items-center gap-2">
+                  <span class="material-symbols-outlined text-secondary">date_range</span>
+                  Gestionar Disponibilidad
+                </h3>
+                
+                <!-- Legend -->
+                <div class="hidden md:flex items-center gap-4 text-xs font-body font-medium text-on-surface-variant bg-surface px-4 py-2 rounded-full border border-outline-variant/30 shadow-sm">
+                  <div class="flex items-center gap-1.5"><div class="w-3 h-3 rounded-full bg-secondary"></div> Seleccionado</div>
+                  <div class="flex items-center gap-1.5"><div class="w-4 h-1.5 rounded-full bg-[#E5E6F6]"></div> Rango</div>
+                  <div class="flex items-center gap-1.5"><div class="w-3 h-3 bg-surface-container-highest rounded-[2px] opacity-70"></div> Ocupado</div>
+                </div>
+              </div>
+
+              <!-- Calendar Container -->
+              <div class="bg-surface p-4 sm:p-6 rounded-3xl border border-outline-variant/30 shadow-[0_10px_30px_rgba(27,28,26,0.03)] flex flex-col items-center justify-center min-h-[350px]">
+                <mat-calendar 
+                  *ngIf="!isLoadingBlocks()"
+                  [minDate]="today"
+                  [selected]="selectedDateRange()" 
+                  (selectedChange)="onDateSelected($event)" 
+                  [dateClass]="dateClassFn" 
+                  [dateFilter]="dateFilterFn"
+                  class="w-full max-w-[350px] custom-calendar animate-in fade-in duration-300">
+                </mat-calendar>
+
+                <div *ngIf="isLoadingBlocks()" class="flex flex-col items-center justify-center gap-3">
+                  <div class="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                  <span class="text-xs font-bold text-primary uppercase tracking-widest">Sincronizando...</span>
+                </div>
+              </div>
+
+              <!-- Block Reason Input -->
+              <div class="mt-8 flex flex-col gap-2">
+                <label class="text-xs font-headline font-black text-primary uppercase tracking-widest">Motivo del Bloqueo</label>
+                <input 
+                  type="text" 
+                  [(ngModel)]="blockReason"
+                  placeholder="Ej: Mantenimiento anual, Uso personal..." 
+                  class="w-full px-6 py-4 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all text-sm font-medium outline-none bg-surface"
+                />
+              </div>
+
+              <!-- Actions -->
+              <div class="mt-8 flex justify-end gap-4">
+                <button (click)="cancelBlockDates()" class="px-6 py-3 rounded-xl border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">
+                  Cancelar
+                </button>
+                <button (click)="saveAvailability()" [disabled]="!selectedDateRange()?.end" class="px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm hover:bg-secondary transition-colors shadow-lg shadow-primary/10 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary">
+                  <span class="material-symbols-outlined text-[18px]">save</span>
+                  Guardar Cambios
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State (if needed) -->
+      <div *ngIf="properties().length === 0" class="py-24 flex flex-col items-center justify-center opacity-50">
+        <span class="material-symbols-outlined text-6xl mb-4">home_work</span>
+        <p class="text-xl font-headline font-bold">Aún no tienes propiedades publicadas</p>
+      </div>
+  </div>
+</div>

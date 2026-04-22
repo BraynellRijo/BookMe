@@ -1,0 +1,19 @@
+<div class="map-container-wrapper relative rounded-2xl overflow-hidden border border-outline-variant shadow-sm transition-all" [style.height]="height">
+  <div class="map-view"
+       leaflet
+       [leafletOptions]="mapOptions"
+       [leafletLayers]="markerLayer"
+       (leafletMapReady)="onMapReady($event)">
+  </div>
+
+  <!-- Loading Indicator on top of map -->
+  <div *ngIf="isGeocoding()" class="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-primary/20 flex items-center gap-3 animate-in fade-in zoom-in duration-300">
+    <div class="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+    <span class="text-xs font-bold text-primary tracking-tight">Detectando ubicación...</span>
+  </div>
+
+  <!-- Instructions Overlay -->
+  <div class="absolute bottom-4 left-4 z-[1000] bg-surface/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-outline-variant text-[10px] uppercase font-bold tracking-widest text-on-surface-variant pointer-events-none">
+    Haz clic o arrastra para situar tu refugio
+  </div>
+</div>

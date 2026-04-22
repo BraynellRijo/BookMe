@@ -1,0 +1,114 @@
+// property-detail.component.scss
+
+::ng-deep {
+  .custom-calendar {
+    // Style the container grid and calendars
+    width: 100% !important;
+    font-family: inherit;
+
+    .mat-calendar-header {
+      padding: 8px 0;
+    }
+
+    /* Weekdays Header */
+    .mat-calendar-table-header th {
+      color: #9CA3AF !important; 
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      padding-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Base Font Override */
+    .mat-calendar-body-cell-content {
+      font-family: inherit;
+      font-weight: 500;
+      border-width: 0 !important;
+      transition: all 0.2s ease-out;
+    }
+
+    /* Occupied/Disabled Dates */
+    .mat-calendar-body-disabled.is-blocked .mat-calendar-body-cell-content,
+    .mat-calendar-body-disabled .mat-calendar-body-cell-content {
+      background-color: #F3F4F6 !important; 
+      color: #9CA3AF !important;
+      border-radius: 6px !important; 
+      opacity: 0.8;
+      pointer-events: none;
+      text-decoration: none !important; /* Overriding previous line-through if any */
+    }
+
+    /* Selected Range Start / End */
+    .mat-calendar-body-selected {
+      background-color: #387478 !important; 
+      color: #ffffff !important;
+      border-radius: 50% !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(56, 116, 120, 0.4) !important;
+    }
+
+    /* In Range */
+    .mat-calendar-body-in-range {
+      background-color: #E5E6F6 !important; 
+    }
+    .mat-calendar-body-in-range::before {
+      background-color: #E5E6F6 !important;
+    }
+
+    .mat-calendar-body-range-start {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+    .mat-calendar-body-range-end {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+    }
+
+    /* Today Overlay */
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 50% !important;
+    }
+  }
+
+  // Animation for page enter
+  .fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Refined select styling
+  select.appearance-none {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    
+    // Remove blue highlight on mobile
+    -webkit-tap-highlight-color: transparent;
+    
+    // Better alignment for the text
+    line-height: normal;
+    padding-top: 2px;
+    
+    &::-ms-expand {
+      display: none;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

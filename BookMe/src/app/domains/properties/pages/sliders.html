@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BookMe | Luxury Stays</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e4e2df",
+                        "on-error": "#ffffff",
+                        "surface-container": "#efeeeb",
+                        "surface": "#fbf9f6",
+                        "on-primary-fixed": "#01201a",
+                        "inverse-surface": "#30312f",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#adcec3",
+                        "surface-dim": "#dbdad7",
+                        "primary-fixed-dim": "#adcec3",
+                        "surface-tint": "#46645c",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#48453f",
+                        "on-surface": "#1b1c1a",
+                        "primary-container": "#2d4b43",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#944931",
+                        "on-primary-container": "#99bab0",
+                        "on-primary-fixed-variant": "#2e4c44",
+                        "on-surface-variant": "#414846",
+                        "secondary-fixed": "#ffdbd0",
+                        "surface-container-high": "#eae8e5",
+                        "outline-variant": "#c1c8c4",
+                        "on-tertiary-container": "#b8b2aa",
+                        "on-secondary-container": "#76331d",
+                        "secondary-container": "#fd9e80",
+                        "primary": "#16342d",
+                        "tertiary-fixed-dim": "#cbc6bd",
+                        "background": "#fbf9f6",
+                        "surface-bright": "#fbf9f6",
+                        "on-secondary-fixed": "#3a0b00",
+                        "secondary-fixed-dim": "#ffb59e",
+                        "on-tertiary-fixed-variant": "#494640",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "tertiary": "#312f29",
+                        "surface-container-low": "#f5f3f0",
+                        "on-secondary-fixed-variant": "#76321c",
+                        "surface-variant": "#e4e2df",
+                        "primary-fixed": "#c8eadf",
+                        "inverse-on-surface": "#f2f0ed",
+                        "on-tertiary-fixed": "#1d1b16",
+                        "outline": "#717976",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "tertiary-fixed": "#e8e2d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation Bar -->
+<header class="bg-[#f5f5f0]/80 dark:bg-[#1b1c1a]/80 backdrop-blur-xl fixed top-0 w-full z-50 tonal-shift bg-surface-container-low">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<h1 class="text-2xl font-bold text-[#16342d] dark:text-[#f5f5f0] font-['Manrope'] tracking-tight">BookMe</h1>
+<div class="hidden md:flex items-center gap-6">
+<span class="text-[#16342d] dark:text-[#f5f5f0] font-bold cursor-pointer transition-colors hover:bg-[#16342d]/5 px-3 py-2 rounded-lg">Explorar</span>
+<span class="text-[#414846] dark:text-[#9ca3af] cursor-pointer transition-colors hover:bg-[#16342d]/5 px-3 py-2 rounded-lg">Favoritos</span>
+<span class="text-[#414846] dark:text-[#9ca3af] cursor-pointer transition-colors hover:bg-[#16342d]/5 px-3 py-2 rounded-lg">Historial</span>
+<span class="text-[#414846] dark:text-[#9ca3af] cursor-pointer transition-colors hover:bg-[#16342d]/5 px-3 py-2 rounded-lg">Mensajes</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#16342d] dark:text-[#d1d5db] p-2 hover:bg-[#16342d]/5 rounded-full transition-colors flex items-center justify-center">
+    <ion-icon name="map-outline" class="text-2xl"></ion-icon>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional woman with a friendly smile, soft natural studio lighting, minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNARpHn3julFvc4OjCRwfWM5CE6FXOCJ-Kx0SyMk1qzTuP4DTENU1uGo2-zJwX9nIB1Qpid7gZwER0MIFtDcl9Cn1Tf6gyu3_gIapb9XBqb2GqMZLRkxwVKNLmwR3_EqytMF_XiGNmasdPu1CJUNVaM3ChQzOsZ_AdvN5sT0_logz3VhoA8t-E82w-aG7D-D8ZHsyctPcbblh69klzIvYxb2ZEzQV5pGzeYkeP-Jd5A0qKI0ESevA4rHjtEPWzTGZvw19OfAivxiY1"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32">
+<!-- Prominent Search Section -->
+<section class="px-6 mb-8">
+<div class="max-w-3xl mx-auto">
+<div class="relative flex items-center bg-surface-container-high rounded-full p-2 shadow-sm">
+<div class="flex-1 flex items-center px-4 gap-3">
+<ion-icon name="search-outline" class="text-outline text-xl"></ion-icon>
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-on-surface-variant font-medium" placeholder="¿A dónde quieres escapar?" type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-semibold transition-transform active:scale-95 shadow-lg">
+<ion-icon name="map-outline" class="text-sm"></ion-icon>
+<span class="font-label text-sm uppercase tracking-wider">Mapa</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Category Filters -->
+<section class="px-6 mb-12 overflow-x-auto hide-scrollbar">
+<div class="flex items-center justify-start md:justify-center gap-8 min-w-max pb-2">
+<div class="flex flex-col items-center gap-2 cursor-pointer group">
+<div class="p-3 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="boat-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest text-primary">Playas</span>
+</div>
+<div class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-opacity">
+<div class="p-3 rounded-full bg-surface-container-highest text-on-surface-variant group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="mountains-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest">Montaña</span>
+</div>
+<div class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-opacity">
+<div class="p-3 rounded-full bg-surface-container-highest text-on-surface-variant group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="water-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest">Piscinas</span>
+</div>
+<div class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-opacity">
+<div class="p-3 rounded-full bg-surface-container-highest text-on-surface-variant group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="business-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest">Histórico</span>
+</div>
+<div class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-opacity">
+<div class="p-3 rounded-full bg-surface-container-highest text-on-surface-variant group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="leaf-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest">Jungla</span>
+</div>
+<div class="flex flex-col items-center gap-2 cursor-pointer group opacity-60 hover:opacity-100 transition-opacity">
+<div class="p-3 rounded-full bg-surface-container-highest text-on-surface-variant group-hover:scale-110 transition-transform flex items-center justify-center">
+<ion-icon name="business-outline" class="text-xl"></ion-icon>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-widest">Ciudad</span>
+</div>
+</div>
+</section>
+<!-- Horizontal Sliders -->
+<!-- Section: Cercanos a ti -->
+<section class="mb-14">
+<div class="px-6 flex justify-between items-end mb-6">
+<div>
+<h2 class="text-3xl font-headline font-extrabold text-primary tracking-tight">Cercanos a ti</h2>
+<p class="text-on-surface-variant font-body text-sm mt-1">Joyas locales esperando ser descubiertas.</p>
+</div>
+<button class="text-secondary font-bold text-sm underline decoration-2 underline-offset-4">Ver todos</button>
+</div>
+<div class="flex overflow-x-auto gap-6 px-6 hide-scrollbar snap-x">
+<!-- Card 1 -->
+<div class="min-w-[300px] md:min-w-[400px] snap-start">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+<img alt="Luxury Villa" class="w-full h-full object-cover" data-alt="Ultra-luxury modern villa with infinity pool overlooking the Mediterranean ocean at dusk, warm interior lighting, architectural photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8e46W-1k7gmZtP0UfD5SICLm9DcpC9ZHT25znF-03sUg8q-kSV7Csqy1FY9wzvd4ba24G4xqMdN-AYg8R8xs2q6_xWCBfEZV8csy-7uiwGaUR_nmpZ6F_Kk_VwWAgqmIreZuZwkP94iXr5w8n5rYGEn-tHZCRo0_lu6slPMQCfrX-wmiG7BC68t5mKtsrYBiRnfFQKvWpMVSznV9eD2iCUD0iMq0NnmMUwQFJ-frvDt-1qYRyQngCiO5Jic4fq-O1BgxZcrg9CBwc"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md p-2 rounded-full text-secondary shadow-md flex items-center justify-center">
+<ion-icon name="heart" class="text-xl"></ion-icon>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-xl text-primary">Villa Serenity</h3>
+<p class="text-on-surface-variant text-sm">A 12 km de distancia</p>
+<p class="mt-2 text-primary font-extrabold text-lg">$450 <span class="text-on-surface-variant font-medium text-sm">/ noche</span></p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg">
+<ion-icon name="star" class="text-secondary text-sm"></ion-icon>
+<span class="font-bold text-sm">4.9</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[300px] md:min-w-[400px] snap-start">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+<img alt="Retreat Center" class="w-full h-full object-cover" data-alt="Boutique hotel with natural wood architecture surrounded by lush tropical gardens, soft morning sunlight, peaceful atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7QVsOWti3xgBi5YAwyEB4u9yIFZonLB2sTp07Wq9G7nff0kUXuir8GVQnG_bVWsUgJvjTMPJ3li1HtckV9Fz_-tfO21pil4ogiXaU-KuCpqIBiKD08eHyHbQIlZt9Gp1XRrBnxReNRKfjEmnIZZnIkHmnvKKzb1UtEn-szVb_saTOhhZKhiCGDGQ5g9-6DGDznRVy0skeCrVAlf2MfN0qKmVnpIRh_rxKQmEBZkC7KVZXtrWl2VUUtFCqG4my0EncVAtbE7bj4ZAX"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md p-2 rounded-full text-on-surface-variant shadow-md flex items-center justify-center">
+<ion-icon name="heart-outline" class="text-xl"></ion-icon>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-xl text-primary">The Eco Retreat</h3>
+<p class="text-on-surface-variant text-sm">A 25 km de distancia</p>
+<p class="mt-2 text-primary font-extrabold text-lg">$320 <span class="text-on-surface-variant font-medium text-sm">/ noche</span></p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg">
+<ion-icon name="star" class="text-secondary text-sm"></ion-icon>
+<span class="font-bold text-sm">4.8</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Bali -->
+<section class="mb-14">
+<div class="px-6 mb-6">
+<h2 class="text-2xl font-headline font-bold text-primary tracking-tight">Escápate a Bali</h2>
+<div class="h-1 w-12 bg-secondary mt-2 rounded-full"></div>
+</div>
+<div class="flex overflow-x-auto gap-4 px-6 hide-scrollbar snap-x">
+<div class="min-w-[240px] snap-start">
+<div class="relative aspect-square rounded-lg overflow-hidden mb-3">
+<img alt="Bali Villa" class="w-full h-full object-cover" data-alt="Traditional Balinese villa with thatched roof nestled in a bright green rice terrace, bright clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtRFueG2CDJwgXTYwZ8quXwcW0c6_z6JZv_ysCgAPgYiNbQ8PC3ujAehsTfPwA4CA47jWowHFne7Wk-Jqo-USHmp2gaGbajxtg8DV_NlTatJhBWhOEsgn-JnjVk5bHDECpQ2Uz52KiCwRDamvzNjEbZx31ntMR7vNTWhhMRsSJI77SZVIhL9DPfM9bOVSy8DRgdhBxfA-AsA1v8vReJaZgib1gOUywAwZ61brtboyWqnhf3kMdOyzz73qr0-zlgFawS4w9ua_qBHwO"/>
+</div>
+<h4 class="font-bold text-primary">Ubud Sanctuary</h4>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant">Bali, Indonesia</span>
+<span class="text-sm font-bold">$180/n</span>
+</div>
+</div>
+<div class="min-w-[240px] snap-start">
+<div class="relative aspect-square rounded-lg overflow-hidden mb-3">
+<img alt="Bali Beach" class="w-full h-full object-cover" data-alt="Modern minimalist oceanfront apartment in Seminyak Bali with floor-to-ceiling windows, sunset reflection on water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn-OolaFpZ2sscDiiliytutvYTOg87A-Avu8tPhMIg4-P4qi__Rm7dL0m8JptKhm8yXgmjH_D1mRHU_3AGXobCdM76k5pIDVY9vrfTrdNWT1JWdaTcU7BOpA7EHPJMDWR4PhGBX7Rl8VtsOrfEuEnCvhavWSCvJQ5YR03PXMklz1G_GUTC5FtrEo3zBFTF2h3Ulzpy7w3rt9n9bbyVvJA7MiINeYiEJjKOJcOqGg2_UDigIO1wrMB7-wcN2-KX0a_uzT5VYRhr70YY"/>
+</div>
+<h4 class="font-bold text-primary">Seminyak Breeze</h4>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant">Bali, Indonesia</span>
+<span class="text-sm font-bold">$210/n</span>
+</div>
+</div>
+<div class="min-w-[240px] snap-start">
+<div class="relative aspect-square rounded-lg overflow-hidden mb-3">
+<img alt="Jungle Hut" class="w-full h-full object-cover" data-alt="Luxury bamboo house in the heart of Bali jungle, mist rising through trees, high-end sustainable architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2s1tsVNc7VHonc5zZcq747_qRf54ii-PTfBCN6RErGnqQvpA2EOSa6Nag96YSurRyxGSyHjGtVCPCJ3l2mByN0MuT9iplrbY0stDxefFH5yLoeKwvRj5FcUOKZyeIcx40qucu7zUkN-AYGCIF9eWJtJ5Eq2HaMfrrS0d4K8WiDfKvubMRJSKJM-J4zCXcwRHPyyP-ugyYnCdOcXkWcEMLRYzVTa_hWXgfwnwBHzut0S6iK4YgM1k1w6PpZ8nMVb1QYOhE8baYiraG"/>
+</div>
+<h4 class="font-bold text-primary">Bamboo Palace</h4>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant">Bali, Indonesia</span>
+<span class="text-sm font-bold">$350/n</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Tulum -->
+<section class="mb-14 bg-primary/5 py-12">
+<div class="px-6 mb-6">
+<h2 class="text-2xl font-headline font-bold text-primary tracking-tight">Magia en Tulum</h2>
+<p class="text-secondary text-sm font-medium tracking-wide uppercase">Cultura &amp; Estilo</p>
+</div>
+<div class="flex overflow-x-auto gap-4 px-6 hide-scrollbar snap-x">
+<div class="min-w-[280px] snap-start bg-surface rounded-2xl p-3 shadow-sm">
+<div class="relative h-48 rounded-xl overflow-hidden mb-3">
+<img alt="Tulum House" class="w-full h-full object-cover" data-alt="Bohemian chic hotel in Tulum with white stone walls, hanging hammocks, and lush palm trees under a sunny sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvlHd8H8A7tFm-iLunXSUNU5-JjjZCk2g1b8xetbWFqa95EJs4I8GP_Df6ky3xDKEG0sPq4DhftqfaNXbdgxz7NVjqbQbJYwEXYkgy3YArRGTnWszxkdBaYw_hZec_KgnqZ06jGtNaQGIb8PxXFNMXTv4qS28LTeoNQmp_MenuYm79ICzOS7VCbpsGzIRneDTQByyqsIIy69lt3101IuX1UEjXitputgFzGYmqJE84vrWbEIYUym7QzBKHauHtyLn16dlOSyTiYqon"/>
+</div>
+<h4 class="font-bold text-primary">Casa Zen Tulum</h4>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-1 text-secondary">
+<ion-icon name="location-outline" class="text-xs"></ion-icon>
+<span class="text-xs font-medium">Riviera Maya</span>
+</div>
+<span class="text-sm font-bold text-primary">$290/n</span>
+</div>
+</div>
+<div class="min-w-[280px] snap-start bg-surface rounded-2xl p-3 shadow-sm">
+<div class="relative h-48 rounded-xl overflow-hidden mb-3">
+<img alt="Tulum Pool" class="w-full h-full object-cover" data-alt="Private cenote-inspired swimming pool in a luxury Tulum villa, crystal clear turquoise water, limestone walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6P1fjMUBpNuXx_9jpRiLlNv-9O0Ag62vEjR5sDDNNlhyg1bmKcHqtdOgCr9G65BfqP4XaKTW_Z9jjXLuafQiQncoAVRL2F3OBgWoz1i8xzLqlxmlheDcjKkF2pEVrA4V9VGspzni2ucY4nD8ecOXK-XiHW4YupYeGcGTDVvM9BLbi5l5KyxOmJ23OzR3Gk0_J1nk77WTi3lXwCpvZvK3FUoO1B1OUeeZxutSPUI7FvGjAyASUxIf9vGrr-MGTBE82Ct6S_Csm_hKx"/>
+</div>
+<h4 class="font-bold text-primary">Cenote Villa</h4>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-1 text-secondary">
+<ion-icon name="location-outline" class="text-xs"></ion-icon>
+<span class="text-xs font-medium">Aldea Zama</span>
+</div>
+<span class="text-sm font-bold text-primary">$410/n</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Amalfi -->
+<section class="mb-14">
+<div class="px-6 mb-6">
+<h2 class="text-2xl font-headline font-bold text-primary tracking-tight">Costa Amalfitana</h2>
+<div class="h-1 w-12 bg-secondary mt-2 rounded-full"></div>
+</div>
+<div class="flex overflow-x-auto gap-4 px-6 hide-scrollbar snap-x">
+<div class="min-w-[240px] snap-start">
+<div class="relative aspect-video rounded-lg overflow-hidden mb-3">
+<img alt="Amalfi Coast" class="w-full h-full object-cover" data-alt="Colorful houses perched on cliffs of Positano overlooking the deep blue Mediterranean sea, sunny day, vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgN7VCTY9sU59Y4wnOwNsNpUd-mVLZ3wGlTogCSln6erjC6ak15bm5OC6WZoa7ffP1SXSgArIKloRoI0tYfj6kM9goyGj_MPC6sAYCJadATEwf46nYw_MtIvMAP7XsVOzRjn8NLRzkqi7VeD1kY34LlgXpiSt5Q-5_CY_lU5wv-XfEaaCbkubaRde2I86txvCPILOxUZ21YtWM_8T2tBDD3sAqXqD6vyDXuYsSFNSIDFTSkvigUKgQQMN8lwxMfFhi7XpL_JAMKieC"/>
+</div>
+<h4 class="font-bold text-primary">Positano Heights</h4>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant">Italia</span>
+<span class="text-sm font-bold">$580/n</span>
+</div>
+</div>
+<div class="min-w-[240px] snap-start">
+<div class="relative aspect-video rounded-lg overflow-hidden mb-3">
+<img alt="Ravello Villa" class="w-full h-full object-cover" data-alt="Luxury estate in Ravello with marble terrace overlooking the Amalfi coast, lemon trees in large terracotta pots" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXcBHQvoAvI3Zi3ncExXd_GNTX2tCodKtz7d6cdTjRCw0zOZLT8km02f7z7TRS5uB0bz9N-qMYvNao4lVIUuouHXsGpSfI7YO3mY5YM_yNkUbTHItxWvcyLqscQF0c-fw33BnyT0iVO0M5l3CJXmlUSkoD12g0urm_BryOJ0BrVPpU6459GWJtUsDsY2MzQZNgzi2rDWsc2JAkZlbk-LeiYyTKhZ76TdE8vexAENJ3Jv6BozjfnoBsIzB5lxmrcrV6gi-cGV4v9qdl"/>
+</div>
+<h4 class="font-bold text-primary">Villa Cimbrone View</h4>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant">Italia</span>
+<span class="text-sm font-bold">$720/n</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 pt-2 pb-safe bg-[#f5f5f0] dark:bg-[#1b1c1a] shadow-[0_-20px_40px_rgba(27,28,26,0.04)] tonal-shift-top">
+<div class="flex justify-around items-end px-4 h-20">
+<!-- Tab: Explorar (Active) -->
+<div class="flex flex-col items-center justify-center text-[#16342d] dark:text-[#f5f5f0] scale-110 transition-transform cursor-pointer">
+<ion-icon name="search" class="text-2xl"></ion-icon>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Explorar</span>
+</div>
+<!-- Tab: Favoritos -->
+<div class="flex flex-col items-center justify-center text-[#414846] dark:text-[#9ca3af] opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<ion-icon name="heart-outline" class="text-2xl"></ion-icon>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Favoritos</span>
+</div>
+<!-- Tab: Historial (Featured/Center) -->
+<div class="flex flex-col items-center justify-center pb-2">
+<div class="bg-primary-container text-on-primary-container p-4 rounded-full shadow-lg -translate-y-4 transition-transform active:scale-90 duration-200 flex items-center justify-center">
+<ion-icon name="time-outline" class="text-2xl"></ion-icon>
+</div>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider text-[#16342d] -mt-2">HISTORIAL DE RESERVAS</span>
+</div>
+<!-- Tab: Mensajes -->
+<div class="flex flex-col items-center justify-center text-[#414846] dark:text-[#9ca3af] opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<ion-icon name="chatbubble-outline" class="text-2xl"></ion-icon>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Mensajes</span>
+</div>
+<!-- Tab: Perfil -->
+<div class="flex flex-col items-center justify-center text-[#414846] dark:text-[#9ca3af] opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<ion-icon name="person-outline" class="text-2xl"></ion-icon>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Perfil</span>
+</div>
+</div>
+</nav>
+<!-- FAB Suppression check: Not needed as this is a dashboard/home screen where navigation shell is primary -->
+</body></html>

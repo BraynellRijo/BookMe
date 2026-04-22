@@ -1,0 +1,72 @@
+<div class="relative">
+    <button 
+        class="text-on-surface-variant hover:bg-surface-container-low p-2.5 rounded-full transition-colors flex items-center justify-center relative hover:shadow-md"
+        (click)="toggle($event)">
+        <span class="material-symbols-outlined text-[26px]">notifications</span>
+        
+        <!-- Badge for unread -->
+        <span *ngIf="unreadCount() > 0" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-surface animate-pulse"></span>
+    </button>
+
+    <!-- Dropdown -->
+    <div *ngIf="isOpen()" [@slideFade]
+        class="absolute right-0 mt-3 w-80 bg-surface-container-lowest border border-outline-variant/20 rounded-3xl shadow-[0_10px_40px_-10px_rgba(22,52,45,0.15)] z-50 overflow-hidden"
+        (click)="$event.stopPropagation()">
+        
+        <!-- Header -->
+        <div class="px-5 py-4 flex justify-between items-center border-b border-outline-variant/10 bg-surface">
+            <h3 class="font-headline font-bold text-primary text-base">Notificaciones</h3>
+            <button *ngIf="unreadCount() > 0" (click)="markAllAsRead($event)" class="text-[11px] font-bold text-secondary uppercase tracking-wider hover:opacity-80 transition-opacity">
+                Marcar leídas
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="max-h-[350px] overflow-y-auto hide-scrollbar">
+            <div *ngIf="notifications().length === 0" class="p-6 flex flex-col items-center justify-center text-on-surface-variant/70 text-center">
+                <span class="material-symbols-outlined text-4xl mb-2 opacity-50">notifications_paused</span>
+                <p class="text-sm font-medium">No tienes notificaciones</p>
+            </div>
+
+            <div *ngFor="let notif of notifications()" 
+                  class="relative p-5 border-b border-outline-variant/10 transition-all duration-300 group cursor-pointer"
+                  [ngClass]="!notif.isRead ? 'bg-primary/5 border-l-4 border-l-primary' : 'bg-surface hover:bg-surface-container-low'">
+                
+                <div class="flex gap-4">
+                    <!-- Icon (Generic as requested) -->
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-[22px]">
+                            notifications
+                        </span>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="text-[13px] font-bold leading-tight text-on-surface">
+                                {{ notif.title }}
+                            </h4>
+                            <span class="text-[10px] whitespace-nowrap ml-2 text-on-surface-variant">
+                                {{ formatDate(notif.createdAt) }}
+                            </span>
+                        </div>
+                        <p class="text-[12px] leading-snug text-on-surface-variant">
+                            {{ notif.message }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="absolute top-4 right-4 flex items-center gap-2">
+                     <button (click)="markAsRead(notif.id, $event)" title="Marcar como leída" class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-[16px] text-on-surface-variant hover:text-primary transition-all">check</button>
+                     <button (click)="deleteNotification(notif.id, $event)" title="Eliminar" class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-[16px] text-on-surface-variant hover:text-error transition-all">delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-5 py-3 text-center border-t border-outline-variant/10 bg-surface">
+            <a routerLink="/profile" (click)="close()" class="text-[12px] font-bold text-on-surface hover:text-primary transition-colors">Ver todas las notificaciones</a>
+        </div>
+    </div>
+</div>

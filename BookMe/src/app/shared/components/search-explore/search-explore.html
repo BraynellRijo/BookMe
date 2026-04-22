@@ -1,0 +1,137 @@
+<div class="fixed inset-0 z-[100] bg-surface flex flex-col overflow-hidden" [@fadeSlide] aria-modal="true" role="dialog">
+  <!-- Top Header -->
+  <div class="w-full bg-surface-container-low shadow-[0_20px_40px_rgba(27,28,26,0.06)] px-8 py-4 flex items-center justify-between border-b border-surface-container-highest">
+    <div class="flex items-center gap-6">
+      <button (click)="onClose()" class="p-2 -ml-2 rounded-full hover:bg-surface-container-highest text-on-surface-variant transition-colors flex items-center justify-center">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <div class="flex items-center bg-surface-container-highest rounded-full px-4 py-2 w-[400px]">
+        <span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+        <input 
+          class="bg-transparent border-none focus:ring-0 text-sm text-on-surface placeholder:text-on-surface-variant flex-1 font-body outline-none" 
+          placeholder="Buscar por nombre..." 
+          type="text" 
+          autofocus
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="searchListings()" />
+      </div>
+    </div>
+    <div class="hidden lg:flex items-center gap-4">
+      <div *ngIf="isLoading()" class="w-5 h-5 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+      <span class="text-sm font-body text-on-surface-variant">{{ resultCount() }} propiedades encontradas</span>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex w-full">
+    <!-- Left Panel: Filters (Scrollable) -->
+    <aside class="w-full lg:w-[450px] xl:w-[500px] bg-surface flex-shrink-0 flex flex-col relative border-r border-surface-container-highest">
+      <!-- Filter Header -->
+      <div class="p-6 pb-2 bg-surface z-10 sticky top-0">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-headline font-semibold text-primary">Filtros</h1>
+        </div>
+      </div>
+
+      <!-- Scrollable Filter Content -->
+      <div class="flex-1 overflow-y-auto filter-scroll px-6 pb-28">
+        
+        <!-- Price Range Section -->
+        <div class="mb-10 border-b border-surface-container-highest pb-10">
+          <h2 class="text-lg font-headline font-medium text-primary mb-6">Rango de Precios</h2>
+          <div class="flex items-center gap-4">
+            <div class="flex-1 bg-surface-container-low rounded-lg p-3 border border-transparent focus-within:border-secondary transition-colors">
+              <label class="text-xs font-body text-on-surface-variant block mb-1">Mínimo</label>
+              <div class="flex items-center">
+                <span class="text-on-surface mr-1">$</span>
+                <input class="w-full bg-transparent border-none p-0 text-sm font-medium focus:ring-0 text-on-surface outline-none" type="number" [(ngModel)]="minPrice"/>
+              </div>
+            </div>
+            <div class="w-4 h-[1px] bg-outline-variant"></div>
+            <div class="flex-1 bg-surface-container-low rounded-lg p-3 border border-transparent focus-within:border-secondary transition-colors">
+              <label class="text-xs font-body text-on-surface-variant block mb-1">Máximo</label>
+              <div class="flex items-center">
+                <span class="text-on-surface mr-1">$</span>
+                <input class="w-full bg-transparent border-none p-0 text-sm font-medium focus:ring-0 text-on-surface outline-none" type="number" [(ngModel)]="maxPrice"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guests Section -->
+        <div class="mb-10 border-b border-surface-container-highest pb-10">
+          <h2 class="text-lg font-headline font-medium text-primary mb-6">Huéspedes</h2>
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-body font-medium text-on-surface">Adultos</p>
+                <p class="text-sm font-body text-on-surface-variant">13 años o más</p>
+              </div>
+              <div class="flex items-center gap-4">
+                <button (click)="decrementAdults()" class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-outline hover:text-on-surface transition-colors">
+                  <span class="material-symbols-outlined text-sm">remove</span>
+                </button>
+                <span class="font-body font-medium w-4 text-center">{{ adults }}</span>
+                <button (click)="incrementAdults()" class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-outline hover:text-on-surface transition-colors">
+                  <span class="material-symbols-outlined text-sm">add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Preview -->
+        <div class="mb-4">
+          <h2 class="text-lg font-headline font-medium text-primary mb-4">Resultados en Mapa</h2>
+          <div *ngIf="listings().length === 0 && !isLoading()" class="py-8 flex flex-col items-center text-center opacity-60">
+            <span class="material-symbols-outlined text-4xl mb-2">search_off</span>
+            <p class="font-body text-sm">No se encontraron propiedades con los filtros actuales.</p>
+          </div>
+          <div class="space-y-3 max-h-[300px] overflow-y-auto">
+            <div *ngFor="let prop of listings()" 
+              class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border border-transparent hover:border-outline-variant/30"
+              (click)="viewProperty(prop.id)">
+              <div class="w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center flex-shrink-0">
+                <img *ngIf="prop.images && prop.images.length > 0" [src]="prop.images[0].url" [alt]="prop.title" class="w-full h-full object-cover" />
+                <span *ngIf="!prop.images || prop.images.length === 0" class="material-symbols-outlined text-primary/40 text-2xl">house</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-body font-bold text-sm text-on-surface truncate">{{ prop.title }}</p>
+                <p class="text-xs text-on-surface-variant">{{ prop.location?.city }}, {{ prop.location?.country }}</p>
+              </div>
+              <div class="flex flex-col items-end gap-1">
+                 <span class="font-headline font-bold text-primary text-sm whitespace-nowrap">${{ prop.pricingRules?.pricePerNight }}/n</span>
+                 <div *ngIf="prop.averageRating > 0" class="flex items-center gap-1 text-[10px] font-bold text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded">
+                    <span class="material-symbols-outlined text-[12px] text-primary fill-1">star</span>
+                    <span>{{ prop.averageRating }}</span>
+                    <span class="opacity-40">({{ prop.reviewsCount }})</span>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fixed Footer Actions -->
+      <div class="absolute bottom-0 left-0 w-full p-6 bg-surface border-t border-surface-container-highest z-20 shadow-[0_-10px_20px_rgba(27,28,26,0.03)]">
+        <button (click)="applyFilters()" class="btn-primary w-full py-3.5 rounded-xl text-white font-body font-medium text-lg transition-colors">
+          Mostrar {{ resultCount() }} propiedades
+        </button>
+      </div>
+    </aside>
+
+    <!-- Right Panel: Map View -->
+    <section class="flex-1 relative hidden md:block bg-surface-container-low overflow-hidden">
+        <div class="w-full h-full" leaflet [leafletOptions]="options" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)">
+        </div>
+        
+        <!-- Search this area button -->
+        <div class="absolute top-6 left-1/2 -translate-x-1/2 z-[400]">
+            <button (click)="searchThisArea()" class="px-6 py-3 rounded-full bg-surface/90 backdrop-blur-md shadow-[0_10px_20px_rgba(27,28,26,0.08)] text-primary font-body font-medium text-sm flex items-center gap-2 hover:bg-surface transition-colors">
+                <span class="material-symbols-outlined text-[18px]">refresh</span>
+                Buscar en esta área
+            </button>
+        </div>
+    </section>
+  </div>
+</div>

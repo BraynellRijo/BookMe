@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#944931",
+                        "on-primary": "#ffffff",
+                        "secondary": "#312f29",
+                        "surface": "#fbf9f6",
+                        "surface-container": "#f5f3f0",
+                        "surface-container-high": "#eae8e5",
+                        "surface-container-highest": "#e4e2df",
+                        "on-surface": "#1b1c1a",
+                        "on-surface-variant": "#414846",
+                        "outline": "#c1c8c4",
+                        "outline-variant": "#e4e2df"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(148, 73, 49, 0.08);
+        }
+
+        /* Style for the dropdown menu */
+        .dropdown-menu {
+            display: none;
+        }
+
+        .dropdown-container:focus-within .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary/20 selection:text-primary">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-md">
+        <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+            <div class="text-2xl font-bold tracking-tighter text-orange-900 dark:text-orange-200 font-headline">The
+                Editorial Escape</div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-orange-900 dark:text-orange-200 font-bold border-b-2 border-orange-900 dark:border-orange-200 pb-1 font-headline tracking-tight"
+                    href="#">Explorar</a>
+                <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-orange-800 dark:hover:text-orange-300 transition-colors duration-300 font-headline tracking-tight"
+                    href="#">Estancias</a>
+                <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-orange-800 dark:hover:text-orange-300 transition-colors duration-300 font-headline tracking-tight"
+                    href="#">Experiencias</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="p-2 rounded-full hover:bg-stone-200/50 transition-all scale-95 duration-200 flex items-center justify-center text-orange-900">
+                    <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-24 pb-20">
+        <!-- Hero Gallery Section -->
+        <section class="max-w-7xl mx-auto px-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-[500px] md:h-[600px]">
+                <div class="md:col-span-2 relative overflow-hidden rounded-xl">
+                    <img alt="Exterior de Villa Tropical" class="w-full h-full object-cover"
+                        data-alt="Luxurious tropical villa with infinity pool at dusk, lush palm trees, warm ambient lighting reflecting on still water, serene atmosphere"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuNizpIroHAaZPPnUTSxjiMQP5-vRF2_R45fenwAqZtdwNQWCDEP3ErD62p1_XpV5gBpFjFmokM7sQXi4kqJEp89qN3Gxt8lYPSrARNOKkbKWIOjNo54fV-uHLn9J97uDAtkIjnFNsYGSMQ9J9-jgbbOTjac0-_bHq0fUjC_z-ztFsFqQhbRpbHWLmLpNQQdnEtUAg2qcuDSucQveHNTkry1ecbJlDJmFBrAElJN8Xwx5S20MxNY4HNt1bMUdfO_pId6pxxJkn50-E" />
+                </div>
+                <div class="hidden md:grid grid-rows-2 gap-4">
+                    <div class="relative overflow-hidden rounded-xl">
+                        <img alt="Dormitorio de la Villa" class="w-full h-full object-cover"
+                            data-alt="Minimalist airy bedroom with large windows facing tropical jungle, white linen bedding, teak wood furniture, soft morning sunlight"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3A5PRbVcXvKkDroaLNR1LCnLIQBJ4Rky7O1Lw7B6nJCi4gF_fwrpMDw0156doP_sj3jpFeL4O8ydT1xqit8egU_IPHONKKmYHgeI237sdqPhjpdATkrxuDcfBjloG_NeJPTffg2iMFJwCbNFNvBO6srpMg72TCTUq4RqrRjlZ9L1Cf-hSELRpZE5TED8T0JJxGE_asncX3DDHJXpVGglCpNB2HPJepDB4NPbEldEWjz5LXebODedUjvECurk54ajLMkGCBv49k8jS" />
+                    </div>
+                    <div class="relative overflow-hidden rounded-xl">
+                        <img alt="Baño de la Villa" class="w-full h-full object-cover"
+                            data-alt="Outdoor stone bathtub surrounded by tropical plants and ferns, natural light filtering through bamboo screen, organic luxury spa aesthetic"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyTP6cKuDktzkQzemq5Sisr6xsu_XDT4S4i_O10wHZzRIiXQY7ly9nyt_GR8SzGvbnf5DsQIqf03XEYbLfSG6CjLs5QTTaQ2nzg5qEM7iNxwn-ysSdqEKkf_D3XkGINcm9aTg4Jn0-Jw36UF5sBruTMXJISV0tce9RyQWITP_KtbHLiky8bcmEwlcEjlCGIWvfD3NdMk3bB0Oh9dDJd5v7B9S317Y_4ohbBS3U7b8ru-XKT45Q1oFM_iTPWTeANBSxgiYH4nDyaGBO" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Content Grid -->
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-16">
+            <!-- Left Column: Details -->
+            <div class="lg:col-span-2 space-y-12">
+                <!-- Title & Meta -->
+                <header class="space-y-4">
+                    <h1 class="text-5xl font-extrabold font-headline text-secondary tracking-tight leading-tight">
+                        Uluwatu Sanctuary: Refugio en los acantilados</h1>
+                    <div class="flex flex-wrap items-center gap-6 text-on-surface-variant font-medium">
+                        <div class="flex items-center gap-1">
+                            <ion-icon name="star" class="text-primary text-sm"></ion-icon>
+                            <span>4.98</span>
+                            <span class="mx-1">·</span>
+                            <button class="underline decoration-primary">124 reseñas</button>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <ion-icon name="location-outline" class="text-sm"></ion-icon>
+                            <span class="underline decoration-primary">Uluwatu, Bali, Indonesia</span>
+                        </div>
+                    </div>
+                </header>
+                <!-- Host Section -->
+                <div class="flex items-center justify-between py-8 border-y border-outline-variant">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-high">
+                            <img alt="Retrato del anfitrión" class="w-full h-full object-cover"
+                                data-alt="Professional portrait of a friendly female host in her 30s with a warm smile, outdoor soft focused greenery background"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwzYtB3hwY7GHAeyotjXQ2Zm8sFQgvhL9Ez0fOPM6NlqBm3QSKzler7Feqli5CVNTJbWOt1vvh0aKHXLhTFdDGDNUiQ7Kc9agUNJ8mrTh9W7L8Sv-9jNDtcAP1AmiNNkoGsiTur4rAnMCpCTWN7aWEQzAPaYIxHnB7oiA0Fm7lazly1_dgjdJsKIHN3g_0x758bz_Z0FC_BRknl7WbijHpQFtzdhOcHXDmg1dEfl9LMPK3b90YpwaTi8Un_DOxJ8jMHjwAjlR7TqgI" />
+                        </div>
+                        <div>
+                            <p class="font-headline font-bold text-lg text-secondary">Anfitrión: Madeleine</p>
+                            <p class="text-on-surface-variant text-sm">Superanfitrión · 5 años recibiendo huéspedes</p>
+                        </div>
+                    </div>
+                    <button
+                        class="px-6 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors font-medium">
+                        Contactar
+                    </button>
+                </div>
+                <!-- Description -->
+                <article class="space-y-6">
+                    <h2 class="text-2xl font-bold font-headline text-secondary">Sobre este santuario</h2>
+                    <p class="text-lg leading-relaxed text-on-surface-variant">
+                        Situada sobre los acantilados de piedra caliza de Uluwatu, esta villa ofrece una experiencia
+                        meditativa donde el horizonte se encuentra con el Océano Índico. Diseñada por arquitectos de
+                        renombre, la estructura combina principios modernistas con el alma tradicional balinesa.
+                    </p>
+                    <p class="text-lg leading-relaxed text-on-surface-variant">
+                        Cada rincón es una viñeta curada, desde los paneles de teca tallados a mano hasta el pozo de
+                        conversación hundido con vistas al atardecer. Esto no es solo una estancia; es un escape
+                        editorial diseñado para quienes buscan silencio y una sofisticada simplicidad.
+                    </p>
+                    <button class="text-primary font-bold inline-flex items-center gap-1 group">
+                        <span class="underline decoration-primary decoration-2">Leer más</span>
+                        <ion-icon name="chevron-forward-outline"
+                            class="group-hover:translate-x-1 transition-transform"></ion-icon>
+                    </button>
+                </article>
+                <!-- Amenities Section -->
+                <section class="space-y-6">
+                    <h2 class="text-2xl font-bold font-headline text-secondary">Servicios</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <div
+                            class="px-5 py-2.5 rounded-lg bg-surface-container-high flex items-center gap-2 border border-outline-variant">
+                            <ion-icon name="water-outline" class="text-primary text-xl"></ion-icon>
+                            <span class="font-medium">Piscina infinita</span>
+                        </div>
+                        <div
+                            class="px-5 py-2.5 rounded-lg bg-surface-container-high flex items-center gap-2 border border-outline-variant">
+                            <ion-icon name="wifi-outline" class="text-primary text-xl"></ion-icon>
+                            <span class="font-medium">Fibra de alta velocidad</span>
+                        </div>
+                        <div
+                            class="px-5 py-2.5 rounded-lg bg-surface-container-high flex items-center gap-2 border border-outline-variant">
+                            <ion-icon name="restaurant-outline" class="text-primary text-xl"></ion-icon>
+                            <span class="font-medium">Cocina de chef</span>
+                        </div>
+                        <div
+                            class="px-5 py-2.5 rounded-lg bg-surface-container-high flex items-center gap-2 border border-outline-variant">
+                            <ion-icon name="snow-outline" class="text-primary text-xl"></ion-icon>
+                            <span class="font-medium">Aire central</span>
+                        </div>
+                        <div
+                            class="px-5 py-2.5 rounded-lg bg-surface-container-high flex items-center gap-2 border border-outline-variant">
+                            <ion-icon name="car-outline" class="text-primary text-xl"></ion-icon>
+                            <span class="font-medium">Parking gratuito</span>
+                        </div>
+                    </div>
+                    <button
+                        class="px-8 py-3 rounded-lg border border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-all">
+                        Mostrar los 48 servicios
+                    </button>
+                </section>
+                <!-- Sleeping Arrangements -->
+                <section class="space-y-6">
+                    <h2 class="text-2xl font-bold font-headline text-secondary">Donde dormirás</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-8 rounded-xl bg-surface-container-high border border-outline-variant space-y-4">
+                            <ion-icon name="bed-outline" class="text-primary text-3xl"></ion-icon>
+                            <div>
+                                <p class="font-bold text-lg">Dormitorio Principal</p>
+                                <p class="text-on-surface-variant">1 cama King, baño en suite con vista al mar</p>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-xl bg-surface-container-high border border-outline-variant space-y-4">
+                            <ion-icon name="bed-outline" class="text-primary text-3xl"></ion-icon>
+                            <div>
+                                <p class="font-bold text-lg">Suite Jardín</p>
+                                <p class="text-on-surface-variant">1 cama King, terraza privada</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Reviews Section -->
+                <section class="space-y-10 pt-12 border-t border-outline-variant">
+                    <header class="flex items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <ion-icon name="star" class="text-primary text-3xl"></ion-icon>
+                            <h2 class="text-3xl font-extrabold font-headline text-secondary">4.98</h2>
+                        </div>
+                        <span class="text-3xl font-extrabold font-headline text-secondary">·</span>
+                        <h2 class="text-3xl font-extrabold font-headline text-secondary">124 reseñas</h2>
+                    </header>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                        <!-- Review 1 -->
+                        <article class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+                                        <img alt="Foto de Elena" class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn-e-C-uM7k3f_eU3W7sN5_7L-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O" />
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-secondary font-headline">Elena Martínez</p>
+                                        <div class="flex items-center gap-1">
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <span class="text-xs text-on-surface-variant ml-1">Noviembre 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative dropdown-container" tabindex="0">
+                                    <button
+                                        class="p-1.5 hover:bg-surface-container-high rounded-full transition-colors">
+                                        <ion-icon name="ellipsis-vertical-outline"
+                                            class="text-on-surface-variant"></ion-icon>
+                                    </button>
+                                    <div
+                                        class="dropdown-menu absolute right-0 mt-1 w-32 bg-white border border-outline-variant rounded-lg shadow-xl py-1 z-10">
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container transition-colors">Editar</button>
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container text-red-600 transition-colors">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-on-surface-variant leading-relaxed">Una experiencia verdaderamente
+                                trascendental. El diseño de la villa es impecable y las vistas al atardecer son
+                                simplemente incomparables. El silencio es el verdadero lujo aquí.</p>
+                        </article>
+                        <!-- Review 2 -->
+                        <article class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+                                        <img alt="Foto de James" class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-f-C-uM7k3f_eU3W7sN5_7L-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O" />
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-secondary font-headline">James Wilson</p>
+                                        <div class="flex items-center gap-1">
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <span class="text-xs text-on-surface-variant ml-1">Octubre 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative dropdown-container" tabindex="0">
+                                    <button
+                                        class="p-1.5 hover:bg-surface-container-high rounded-full transition-colors">
+                                        <ion-icon name="ellipsis-vertical-outline"
+                                            class="text-on-surface-variant"></ion-icon>
+                                    </button>
+                                    <div
+                                        class="dropdown-menu absolute right-0 mt-1 w-32 bg-white border border-outline-variant rounded-lg shadow-xl py-1 z-10">
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container transition-colors">Editar</button>
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container text-red-600 transition-colors">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-on-surface-variant leading-relaxed">Perfect for architectural photography and
+                                deep relaxation. The attention to detail in every piece of furniture is remarkable.
+                                Madeleine is a wonderful host.</p>
+                        </article>
+                        <!-- Review 3 -->
+                        <article class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+                                        <img alt="Foto de Clara" class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-g-D-uM7k3f_eU3W7sN5_7L-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O" />
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-secondary font-headline">Clara Thompson</p>
+                                        <div class="flex items-center gap-1">
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <span class="text-xs text-on-surface-variant ml-1">Septiembre 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative dropdown-container" tabindex="0">
+                                    <button
+                                        class="p-1.5 hover:bg-surface-container-high rounded-full transition-colors">
+                                        <ion-icon name="ellipsis-vertical-outline"
+                                            class="text-on-surface-variant"></ion-icon>
+                                    </button>
+                                    <div
+                                        class="dropdown-menu absolute right-0 mt-1 w-32 bg-white border border-outline-variant rounded-lg shadow-xl py-1 z-10">
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container transition-colors">Editar</button>
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container text-red-600 transition-colors">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-on-surface-variant leading-relaxed">The outdoor bath area is a sanctuary
+                                within a sanctuary. Everything was spotless and beautifully curated. I can't wait to
+                                return.</p>
+                        </article>
+                        <!-- Review 4 -->
+                        <article class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+                                        <img alt="Foto de Marcus" class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-h-E-uM7k3f_eU3W7sN5_7L-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O-E1kO0O0X7E0O" />
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-secondary font-headline">Marcus Chen</p>
+                                        <div class="flex items-center gap-1">
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <ion-icon name="star" class="text-primary text-xs"></ion-icon>
+                                            <span class="text-xs text-on-surface-variant ml-1">Agosto 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative dropdown-container" tabindex="0">
+                                    <button
+                                        class="p-1.5 hover:bg-surface-container-high rounded-full transition-colors">
+                                        <span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+                                    </button>
+                                    <div
+                                        class="dropdown-menu absolute right-0 mt-1 w-32 bg-white border border-outline-variant rounded-lg shadow-xl py-1 z-10">
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container transition-colors">Editar</button>
+                                        <button
+                                            class="w-full text-left px-4 py-2 text-sm hover:bg-surface-container text-red-600 transition-colors">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-on-surface-variant leading-relaxed">Exceptional design. The infinity pool
+                                merging with the Indian Ocean is a view I will never forget. True editorial luxury.</p>
+                        </article>
+                    </div>
+                    <button
+                        class="px-8 py-3 rounded-lg border border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-all">
+                        Mostrar las 124 reseñas
+                    </button>
+                </section>
+            </div>
+            <!-- Right Column: Sticky Booking Widget -->
+            <div class="relative">
+                <aside
+                    class="sticky top-32 editorial-shadow bg-surface p-8 rounded-xl border border-outline-variant space-y-8">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <span class="text-3xl font-extrabold text-secondary font-headline">$850</span>
+                            <span class="text-on-surface-variant font-medium">/ noche</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-sm font-semibold">
+                            <ion-icon name="star" class="text-primary text-sm"></ion-icon>
+                            <span>4.98</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 border border-outline-variant rounded-lg overflow-hidden">
+                        <div class="p-4 border-r border-outline-variant bg-surface-container">
+                            <label
+                                class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Entrada</label>
+                            <input class="w-full bg-transparent border-none p-0 focus:ring-0 font-medium text-secondary"
+                                type="text" value="05 / 12 / 24" />
+                        </div>
+                        <div class="p-4 bg-surface-container">
+                            <label
+                                class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Salida</label>
+                            <input class="w-full bg-transparent border-none p-0 focus:ring-0 font-medium text-secondary"
+                                type="text" value="12 / 12 / 24" />
+                        </div>
+                        <div class="col-span-2 p-4 border-t border-outline-variant bg-surface-container">
+                            <label
+                                class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Huéspedes</label>
+                            <select
+                                class="w-full bg-transparent border-none p-0 focus:ring-0 font-medium text-secondary cursor-pointer">
+                                <option>2 huéspedes</option>
+                                <option>3 huéspedes</option>
+                                <option>4 huéspedes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full py-5 rounded-lg bg-primary text-white font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                        Reservar Santuario
+                    </button>
+                    <p class="text-center text-sm text-on-surface-variant">No se te cobrará nada aún</p>
+                    <div class="space-y-4 pt-4">
+                        <div class="flex justify-between text-on-surface-variant">
+                            <span>$850 x 7 noches</span>
+                            <span>$5,950</span>
+                        </div>
+                        <div class="flex justify-between text-on-surface-variant">
+                            <span>Tarifa de curación</span>
+                            <span>$120</span>
+                        </div>
+                        <div
+                            class="pt-4 border-t border-outline-variant flex justify-between font-bold text-lg text-secondary">
+                            <span>Total</span>
+                            <span>$6,070</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-stone-200 dark:bg-stone-950 w-full mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full">
+            <div class="space-y-4 text-center md:text-left">
+                <div class="text-xl font-black text-orange-900 dark:text-orange-200 font-headline">BookMe
+                </div>
+                <p class="text-stone-600 dark:text-stone-400 max-w-xs text-sm font-['Manrope'] leading-relaxed">Una
+                    galería curada de estancias para el viajero moderno que busca el lujo silencioso.</p>
+            </div>
+            <div
+                class="flex flex-wrap justify-center md:justify-end gap-x-12 gap-y-4 font-['Manrope'] text-sm mt-8 md:mt-0">
+                <a class="text-stone-600 dark:text-stone-400 hover:text-orange-900 dark:hover:text-orange-300 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Privacidad</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-orange-900 dark:hover:text-orange-300 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Términos</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-orange-900 dark:hover:text-orange-300 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Sostenibilidad</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-orange-900 dark:hover:text-orange-300 opacity-80 hover:opacity-100 transition-opacity"
+                    href="#">Contacto</a>
+            </div>
+        </div>
+        <div class="px-12 pb-8 text-center text-stone-500 text-xs font-['Manrope']">
+            © 2024 BookMe. A Digital Curator Sanctuary.
+        </div>
+    </footer>
+</body>
+
+</html>

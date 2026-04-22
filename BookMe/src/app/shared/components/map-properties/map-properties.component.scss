@@ -1,0 +1,66 @@
+// Override por defecto de las sombras e iconos de Leaflet
+.custom-price-divicon {
+  background: transparent !important;
+  border: none !important;
+}
+
+// Burbuja del Mapa
+.price-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  font-family: inherit; // Usamos la tipografía del sistema
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  padding: 8px 12px;
+  border-radius: 20px; 
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(27, 28, 26, 0.15);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  z-index: 100;
+
+  &:hover, .group:hover & {
+    transform: scale(1.1) translateY(-2px);
+    background-color: var(--color-primary, #387478);
+    color: white;
+    box-shadow: 0 6px 16px rgba(56, 116, 120, 0.3);
+    z-index: 1000 !important;
+
+    &::after {
+      background-color: var(--color-primary, #387478);
+    }
+  }
+
+  // La flecha apuntando hacia abajo
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; // Empujamos debajo de la caja
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border-right: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+// Estilos del popup
+.marker-popup-content {
+  font-family: inherit;
+  
+  h5 {
+    color: var(--color-secondary, #243642);
+  }
+
+  button {
+    font-weight: 600;
+  }
+}

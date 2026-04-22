@@ -1,0 +1,209 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\application\\services\\bookingservice\\guestbookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\services\\bookingservice\\guestbookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\presentation\\controllers\\guestbookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\guestbookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\presentation\\controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\presentation\\controllers\\hostlistingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\hostlistingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\presentation\\controllers\\reviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\reviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\application\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\application\\services\\listingservice\\hostlistingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\services\\listingservice\\hostlistingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\application\\services\\listingservice\\listingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\services\\listingservice\\listingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\infrastructure\\services\\smtpemailservice\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\smtpemailservice\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\infrastructure\\services\\photoservices\\photoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\photoservices\\photoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|c:\\users\\rijob\\documents\\c-4\\programacion-2\\final_boss\\bookme_backend\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26BB4B99-E4DB-8D6F-9A99-39E9DFD5E68A}|Presentation\\Presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Program.cs",
+              "RelativeDocumentMoniker": "Presentation\\Program.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Program.cs",
+              "RelativeToolTip": "Presentation\\Program.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T00:26:58.609Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ListingsController.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\ListingsController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\ListingsController.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\ListingsController.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\ListingsController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAIwAgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:26:05.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GuestBookingController.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\GuestBookingController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\GuestBookingController.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\GuestBookingController.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\GuestBookingController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:26:03.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HostListingController.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\HostListingController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\HostListingController.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\HostListingController.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\HostListingController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:17:55.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EmailServices.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Infrastructure\\Services\\SmtpEmailService\\EmailServices.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\SmtpEmailService\\EmailServices.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Infrastructure\\Services\\SmtpEmailService\\EmailServices.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\SmtpEmailService\\EmailServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:10:33.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PhotoService.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Infrastructure\\Services\\PhotoServices\\PhotoService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\PhotoServices\\PhotoService.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Infrastructure\\Services\\PhotoServices\\PhotoService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\PhotoServices\\PhotoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:10:28.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\AuthService\\AuthService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\AuthService\\AuthService.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\AuthService\\AuthService.cs",
+              "RelativeToolTip": "Application\\Services\\AuthService\\AuthService.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:10:14.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GuestBookingService.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\BookingService\\GuestBookingService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\BookingService\\GuestBookingService.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\BookingService\\GuestBookingService.cs",
+              "RelativeToolTip": "Application\\Services\\BookingService\\GuestBookingService.cs",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAAwKYAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:10:11.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReviewsController.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\ReviewsController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\ReviewsController.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Presentation\\Controllers\\ReviewsController.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\ReviewsController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwBAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:26:17.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ListingService.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\ListingService\\ListingService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\ListingService\\ListingService.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\ListingService\\ListingService.cs",
+              "RelativeToolTip": "Application\\Services\\ListingService\\ListingService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:09:26.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HostListingService.cs",
+              "DocumentMoniker": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\ListingService\\HostListingService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\ListingService\\HostListingService.cs",
+              "ToolTip": "C:\\Users\\rijob\\Documents\\C-4\\Programacion-2\\Final_Boss\\BookMe_Backend\\Application\\Services\\ListingService\\HostListingService.cs",
+              "RelativeToolTip": "Application\\Services\\ListingService\\HostListingService.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:09:29.671Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

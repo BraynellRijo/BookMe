@@ -1,0 +1,267 @@
+@use '../../ui/design-tokens' as t;
+
+// ─── Verify Container ─────────────────────────────────────────
+.verify-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+// ─── Icon ─────────────────────────────────────────────────────
+.verify-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: t.$surface-container-low;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: t.$spacing-xl;
+  transition: t.$transition-smooth;
+
+  &.success {
+    background: #e8f5e9;
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+.icon-mail {
+  font-size: 2.25rem !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  color: t.$primary;
+}
+
+.icon-check {
+  font-size: 2.5rem !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  color: #2e7d32;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// ─── Form Header ──────────────────────────────────────────────
+.form-header {
+  margin-bottom: t.$spacing-xl;
+}
+
+.form-title {
+  font-family: t.$font-headline;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: t.$primary;
+  letter-spacing: -0.02em;
+  margin: 0 0 t.$spacing-sm;
+
+  &.success-title {
+    color: #2e7d32;
+  }
+}
+
+.form-subtitle {
+  font-family: t.$font-body;
+  font-size: 0.9375rem;
+  color: t.$on-surface-variant;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+
+  strong {
+    color: t.$on-surface;
+    font-weight: 600;
+  }
+}
+
+// ─── Server Error ─────────────────────────────────────────────
+.server-error {
+  display: flex;
+  align-items: center;
+  gap: t.$spacing-sm;
+  background: t.$error-container;
+  color: t.$error;
+  padding: t.$spacing-md t.$spacing-lg;
+  border-radius: t.$radius-md;
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  margin-bottom: t.$spacing-lg;
+  animation: slideDown 0.3s ease-out;
+  width: 100%;
+
+  mat-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Code Inputs ──────────────────────────────────────────────
+.code-inputs {
+  display: flex;
+  gap: t.$spacing-md;
+  margin-bottom: t.$spacing-xl;
+}
+
+.digit-input {
+  width: 52px;
+  height: 60px;
+  border: none;
+  border-radius: t.$radius-md;
+  background: t.$surface-container-high;
+  text-align: center;
+  font-family: t.$font-headline;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: t.$on-surface;
+  caret-color: t.$primary;
+  outline: none;
+  transition: t.$transition-smooth;
+
+  &::placeholder {
+    color: t.$outline-variant;
+  }
+
+  &:focus {
+    background: t.$surface-container-lowest;
+    box-shadow: t.$ghost-border-focus;
+    box-shadow: 0 0 0 2px rgba(70, 100, 92, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &.filled {
+    background: t.$surface-container-lowest;
+    color: t.$primary;
+  }
+
+  &.error {
+    animation: shake 0.4s ease-in-out;
+    background: rgba(186, 26, 26, 0.05);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+// ─── Primary Button ───────────────────────────────────────────
+.btn-primary {
+  width: 100%;
+  max-width: 380px;
+  padding: 0.875rem t.$spacing-xl;
+  background: t.$gradient-primary;
+  color: t.$on-primary;
+  border: none;
+  border-radius: t.$radius-xl;
+  font-family: t.$font-headline;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: t.$transition-smooth;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: t.$spacing-sm;
+  box-shadow: t.$shadow-card;
+
+  &:hover:not(:disabled) {
+    box-shadow: t.$shadow-ambient;
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: t.$shadow-card;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Spinner ──────────────────────────────────────────────────
+.spinner {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: t.$on-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ─── Resend ───────────────────────────────────────────────────
+.resend-text {
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  color: t.$on-surface-variant;
+  margin-top: t.$spacing-lg;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: t.$secondary;
+  font-weight: 600;
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: t.$transition-smooth;
+
+  &:hover {
+    color: t.$secondary-dark;
+  }
+}
+
+.resend-cooldown {
+  color: t.$outline;
+  font-weight: 500;
+}
+
+// ─── Back Link ────────────────────────────────────────────────
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: t.$spacing-xs;
+  color: t.$on-surface-variant;
+  font-family: t.$font-body;
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin-top: t.$spacing-xl;
+  transition: t.$transition-smooth;
+
+  mat-icon {
+    font-size: 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  &:hover {
+    color: t.$primary;
+  }
+}

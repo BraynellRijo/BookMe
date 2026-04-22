@@ -1,0 +1,200 @@
+<div class="min-h-screen bg-surface px-6 md:px-12 lg:px-24 pt-32 pb-16">
+  
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="mb-12" data-aos="fade-down">
+      <h1 class="text-4xl md:text-5xl font-headline font-extrabold text-primary mb-4 tracking-tight">Mis Viajes</h1>
+      <p class="text-on-surface-variant font-body text-lg max-w-2xl">Revisa tus próximas aventuras, vuelve a visitar los lugares donde te hospedaste o consulta reservas canceladas.</p>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="flex gap-8 border-b border-outline-variant/30 mb-8 overflow-x-auto hide-scrollbar" data-aos="fade-in" data-aos-delay="100">
+      <button (click)="setTab('upcoming')" 
+        class="pb-4 font-body font-medium transition-colors text-sm uppercase tracking-widest whitespace-nowrap"
+        [ngClass]="activeTab === 'upcoming' ? 'text-primary border-b-2 border-primary' : 'text-on-surface-variant hover:text-primary'">
+        Próximos Viajes
+      </button>
+      <button (click)="setTab('past')" 
+        class="pb-4 font-body font-medium transition-colors text-sm uppercase tracking-widest whitespace-nowrap"
+        [ngClass]="activeTab === 'past' ? 'text-primary border-b-2 border-primary' : 'text-on-surface-variant hover:text-primary'">
+        Viajes Anteriores
+      </button>
+      <button (click)="setTab('cancelled')" 
+        class="pb-4 font-body font-medium transition-colors text-sm uppercase tracking-widest whitespace-nowrap"
+        [ngClass]="activeTab === 'cancelled' ? 'text-primary border-b-2 border-primary' : 'text-on-surface-variant hover:text-primary'">
+        Cancelados
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredTrips.length === 0" class="py-24 flex flex-col items-center justify-center text-center bg-surface-container-lowest rounded-3xl border border-outline-variant/20" data-aos="zoom-in" data-aos-delay="200">
+      <div class="w-20 h-20 bg-surface-container-low rounded-full flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-4xl text-on-surface-variant">flight_takeoff</span>
+      </div>
+      <h3 class="text-2xl font-headline font-semibold text-primary mb-2">No hay viajes aquí... aún</h3>
+      <p class="text-on-surface-variant font-body max-w-md mb-8">Es el momento perfecto para desempolvar las maletas y empezar a planear tu próxima aventura editorial.</p>
+      <button routerLink="/" class="btn-primary hover:bg-secondary active:scale-95 transition-all text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-primary/10">
+        Explorar propiedades
+      </button>
+    </div>
+
+    <!-- Trips Grid -->
+    <div *ngIf="filteredTrips.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <div *ngFor="let trip of filteredTrips; let i = index" 
+           class="group bg-surface-container-lowest rounded-3xl overflow-hidden border border-outline-variant/20 hover:border-outline transition-all hover:shadow-xl hover:shadow-primary/5 cursor-pointer flex flex-col"
+           data-aos="fade-up" [attr.data-aos-delay]="100 * (i + 1)">
+        
+        <!-- Image Header -->
+        <div class="relative w-full aspect-[4/3] overflow-hidden">
+          <img [src]="trip.imageUrl" [alt]="trip.propertyName" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          
+          <!-- Status Badge -->
+          <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full backdrop-blur-md bg-white/90 shadow-sm border border-white/20">
+            <span class="font-bold text-[10px] uppercase tracking-widest"
+                  [ngClass]="{
+                    'text-green-700': trip.status === 'upcoming',
+                    'text-on-surface-variant': trip.status === 'past',
+                    'text-red-700': trip.status === 'cancelled'
+                  }">
+              {{ trip.status === 'upcoming' ? 'Confirmado' : trip.status === 'past' ? 'Completado' : 'Cancelado' }}
+            </span>
+          </div>
+
+          <button class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-on-surface hover:text-primary hover:bg-white shadow-sm transition-all opacity-0 group-hover:opacity-100">
+            <span class="material-symbols-outlined text-lg">arrow_forward_ios</span>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-headline font-bold text-on-surface mb-1 group-hover:text-primary transition-colors line-clamp-1">{{trip.propertyName}}</h3>
+          <p class="text-sm font-body text-on-surface-variant mb-4 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">location_on</span>
+            {{trip.location}}
+          </p>
+          
+          <div class="mt-auto pt-4 border-t border-outline-variant/30 flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Fechas</span>
+              <span class="text-sm font-body font-medium text-on-surface">
+                {{trip.checkIn | date:'dd MMM'}} - {{trip.checkOut | date:'dd MMM, yyyy'}}
+              </span>
+            </div>
+            
+            <div class="flex flex-col items-end">
+              <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Monto total</span>
+              <span class="text-sm font-body font-bold text-primary">${{trip.totalPrice}}</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div *ngIf="trip.status === 'upcoming'" class="mt-5 flex gap-3">
+             <button (click)="openCancelModal($event, trip)" class="w-full text-center border border-red-700/30 text-red-700 font-bold font-body text-sm py-2 rounded-xl hover:bg-red-50 hover:border-red-700 transition-colors">
+               Cancelar Reserva
+             </button>
+          </div>
+
+          <div *ngIf="trip.status === 'past' && !trip.hasReviewed" class="mt-5 flex gap-3">
+             <button (click)="openReviewModal($event, trip)" class="w-full text-center border-2 border-primary text-primary font-bold font-body text-sm py-2 rounded-xl hover:bg-primary hover:text-white transition-all shadow-sm">
+               Dejar Reseña
+             </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cancellation Modal -->
+  <div *ngIf="showCancelModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-primary/20 backdrop-blur-sm" (click)="closeModal()"></div>
+    
+    <!-- Modal Content -->
+    <div class="relative bg-surface w-full max-w-md rounded-[2rem] p-8 shadow-2xl border border-outline-variant/30 animate-in fade-in zoom-in duration-300">
+      <div class="flex flex-col items-center text-center">
+        <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6">
+          <span class="material-symbols-outlined text-red-700 text-3xl">error</span>
+        </div>
+        
+        <h2 class="text-2xl font-headline font-extrabold text-primary mb-3">¿Cancelar reserva?</h2>
+        
+        <p class="text-on-surface-variant font-body mb-8">
+          Estás a punto de cancelar tu estancia en <span class="font-bold text-primary">{{tripToCancel?.propertyName}}</span>. 
+          Esta acción no se puede deshacer y podrías perder tu cupo.
+        </p>
+
+        <div class="flex flex-col w-full gap-3">
+          <button (click)="confirmCancel()" class="w-full bg-red-700 text-white font-bold py-3 rounded-2xl hover:bg-red-800 transition-colors shadow-lg shadow-red-700/20">
+            Sí, cancelar reserva
+          </button>
+          <button (click)="closeModal()" class="w-full bg-surface-container-low text-primary font-bold py-3 rounded-2xl hover:bg-surface-container transition-colors">
+            No, mantener reserva
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review Modal Premium -->
+  <div *ngIf="showReviewModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-primary/30 backdrop-blur-md" (click)="closeReviewModal()"></div>
+    
+    <!-- Modal Content -->
+    <div class="relative bg-surface w-full max-w-lg rounded-[2.5rem] p-8 shadow-2xl border border-outline-variant/30 animate-in slide-in-from-bottom-8 fade-in flex flex-col">
+      <!-- Close Button -->
+      <button (click)="closeReviewModal()" class="absolute top-6 right-6 w-10 h-10 bg-surface-container rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+
+      <div class="mb-8">
+        <h2 class="text-3xl font-headline font-extrabold text-primary mb-2">Dejar Reseña</h2>
+        <p class="text-on-surface-variant font-body">¿Qué te pareció tu estancia en <span class="font-bold text-on-surface">{{tripToReview?.propertyName}}</span>?</p>
+      </div>
+
+      <!-- Thumb/Image optional for extra flair -->
+      <div class="w-full h-32 rounded-2xl mb-8 overflow-hidden relative">
+        <img [src]="tripToReview?.imageUrl" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <p class="absolute bottom-3 left-4 text-white font-headline font-bold">{{tripToReview?.location}}</p>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="flex flex-col items-center mb-8">
+        <span class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-4">Calificación general</span>
+        <div class="flex gap-2">
+          <button *ngFor="let star of [1,2,3,4,5]" 
+                  (click)="setRating(star)" 
+                  class="transform transition-transform hover:scale-125 focus:outline-none focus:scale-110 active:scale-95">
+            <span class="material-symbols-outlined text-4xl sm:text-5xl transition-colors"
+                  [ngClass]="star <= reviewRating ? 'text-[#F59E0B]' : 'text-outline-variant'">
+              {{ star <= reviewRating ? 'star' : 'star_rate' }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Comment Section -->
+      <div class="flex flex-col mb-8">
+        <label for="reviewComment" class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-3">Tu Comentario</label>
+        <textarea id="reviewComment" rows="4" 
+                  class="w-full bg-surface-container-lowest border-2 border-outline-variant/30 rounded-2xl p-4 text-on-surface font-body outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-none" 
+                  placeholder="La ubicación era increíble y el anfitrión muy amable..."
+                  [value]="reviewComment"
+                  (input)="updateReviewComment($event)"></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col w-full gap-3 mt-auto">
+        <button (click)="submitReview()" 
+                [disabled]="reviewRating === 0"
+                class="w-full bg-primary text-white font-bold py-4 rounded-2xl hover:bg-secondary transition-colors shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed">
+          Publicar Reseña
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

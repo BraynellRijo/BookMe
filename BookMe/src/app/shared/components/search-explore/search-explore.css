@@ -1,0 +1,65 @@
+/* search-explore.css */
+
+.custom-price-divicon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.price-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #1b1c1a;
+  font-weight: 800;
+  font-size: 14px; /* Slightly larger */
+  padding: 8px 16px; /* Larger padding */
+  border-radius: 20px;
+  border: 2px solid #387478; /* Prominent primary border */
+  box-shadow: 0 8px 24px rgba(27, 28, 26, 0.25); /* Deeper shadow */
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  white-space: nowrap;
+}
+
+.price-bubble:hover {
+  transform: scale(1.15) translateY(-4px);
+  background: #387478; /* Primary background on hover */
+  color: #ffffff;
+  box-shadow: 0 12px 32px rgba(56, 116, 120, 0.4);
+  z-index: 1000 !important;
+  border-color: #ffffff;
+}
+
+.price-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-right: 2px solid #387478;
+  border-bottom: 2px solid #387478;
+  transition: all 0.25s ease;
+  z-index: -1;
+}
+
+.price-bubble:hover::after {
+  background: #387478;
+  border-color: #ffffff;
+  bottom: -5px;
+}
+
+.filter-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.filter-scroll::-webkit-scrollbar-thumb {
+  background: rgba(56, 116, 120, 0.2);
+  border-radius: 10px;
+}
+.filter-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 116, 120, 0.4);
+}

@@ -1,0 +1,342 @@
+<div class="min-h-screen bg-surface px-6 md:px-12 lg:px-24 pt-28 pb-16">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-32 gap-4">
+      <div class="w-10 h-10 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+      <p class="text-on-surface-variant font-body text-sm">Cargando datos de la publicación...</p>
+    </div>
+
+    <ng-container *ngIf="!isLoading">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div class="flex items-center gap-4">
+          <button (click)="goBack()" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <div>
+            <h1 class="text-3xl md:text-4xl font-headline font-extrabold text-primary tracking-tight">Editar publicación</h1>
+            <p class="text-on-surface-variant font-body text-sm mt-1">ID: {{listingId}}</p>
+          </div>
+        </div>
+        <button (click)="saveChanges()" [disabled]="isSaving" class="btn-explore px-8 py-4 rounded-2xl text-white font-headline font-bold text-base shadow-xl shadow-primary/20 flex items-center gap-3 transition-transform hover:scale-105 active:scale-95 disabled:opacity-60 disabled:pointer-events-none">
+          <div *ngIf="isSaving" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          <span *ngIf="!isSaving" class="material-symbols-outlined">save</span>
+          {{isSaving ? 'Guardando...' : 'Guardar cambios'}}
+        </button>
+      </div>
+
+      <form [formGroup]="editForm">
+
+        <!-- ═══════════════════════════════ SECTION 1: General Info ═══════════════════════════════ -->
+        <section class="bg-surface-container-lowest rounded-[2rem] border border-outline-variant/20 p-8 md:p-10 mb-8 shadow-[0_10px_30px_rgba(27,28,26,0.02)]">
+          <div class="flex items-center gap-3 mb-8 pb-6 border-b border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-2xl">info</span>
+            <h2 class="text-xl font-headline font-bold text-primary">Información general</h2>
+          </div>
+
+          <!-- Title -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium font-body text-on-surface mb-2">Título de la publicación</label>
+            <input type="text" formControlName="title" placeholder="Stunning Beachfront Villa"
+                   class="w-full px-5 py-3.5 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50 font-body">
+            <span class="text-xs text-error mt-1 block" *ngIf="editForm.get('title')?.touched && editForm.get('title')?.invalid">El título es obligatorio (máx 100 caracteres).</span>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium font-body text-on-surface mb-2">Descripción</label>
+            <textarea formControlName="description" rows="5" placeholder="Describe lo que hace especial tu espacio..."
+                      class="w-full px-5 py-3.5 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none placeholder:text-on-surface-variant/50 font-body"></textarea>
+            <span class="text-xs text-error mt-1 block" *ngIf="editForm.get('description')?.touched && editForm.get('description')?.invalid">Mínimo 20 caracteres.</span>
+          </div>
+
+          <!-- Amenities Grid -->
+          <div>
+            <label class="block text-sm font-medium font-body text-on-surface mb-4">Servicios y amenidades</label>
+            
+            <!-- Loading State -->
+            <div *ngIf="isLoadingAmenities" class="flex items-center gap-3 py-6">
+              <div class="w-5 h-5 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+              <span class="text-sm font-body text-on-surface-variant">Cargando amenidades...</span>
+            </div>
+
+            <div *ngIf="!isLoadingAmenities" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              <label *ngFor="let am of amenityOptions"
+                     class="flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md group"
+                     [ngClass]="isAmenityChecked(am.id) ? 'border-secondary bg-secondary/5 shadow-sm' : 'border-outline-variant bg-surface hover:border-outline'">
+                <input type="checkbox" class="sr-only" [value]="am.id" [checked]="isAmenityChecked(am.id)" (change)="onAmenityToggle($event, am.id)">
+                <span *ngIf="am.icon" class="material-symbols-outlined text-2xl transition-colors"
+                      [ngClass]="isAmenityChecked(am.id) ? 'text-secondary' : 'text-on-surface-variant group-hover:text-primary'">{{am.icon}}</span>
+                <span class="font-body text-xs font-medium text-center"
+                      [ngClass]="isAmenityChecked(am.id) ? 'text-secondary' : 'text-on-surface'">{{am.name}}</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════ SECTION 1.5: Location ═══════════════════════════════ -->
+        <section class="bg-surface-container-lowest rounded-[2rem] border border-outline-variant/20 p-6 md:p-8 mb-8 shadow-[0_10px_30px_rgba(27,28,26,0.02)]">
+          <div class="flex items-center gap-3 mb-6 pb-4 border-b border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-2xl">location_on</span>
+            <h2 class="text-lg font-headline font-bold text-primary uppercase tracking-wide">Ubicación</h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 items-start">
+            
+            <!-- Map and Coords Side -->
+            <div class="flex flex-col gap-4">
+              <p class="text-xs font-body text-on-surface-variant -mt-3">Ajusta el marcador para actualizar la ubicación.</p>
+              
+              <div class="w-full h-[400px] rounded-2xl overflow-hidden border border-outline-variant shadow-sm relative z-0">
+                <app-map-picker #mapPicker 
+                  [initialLat]="editForm.getRawValue().latitude || 18.48" 
+                  [initialLng]="editForm.getRawValue().longitude || -69.93"
+                  (locationSelected)="onLocationSelected($event)"
+                  height="400px">
+                </app-map-picker>
+              </div>
+
+              <!-- Coordenadas Geográficas (Compact) -->
+              <div class="flex items-center gap-3 opacity-40">
+                <div class="flex-1 bg-surface-container rounded-lg px-3 py-1.5 border border-outline-variant/30 flex items-center justify-between">
+                  <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-tighter">Lat</span>
+                  <span class="text-[10px] font-mono text-on-surface">{{ editForm.get('latitude')?.value | number:'1.5-5' }}</span>
+                </div>
+                <div class="flex-1 bg-surface-container rounded-lg px-3 py-1.5 border border-outline-variant/30 flex items-center justify-between">
+                  <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-tighter">Lon</span>
+                  <span class="text-[10px] font-mono text-on-surface">{{ editForm.get('longitude')?.value | number:'1.5-5' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address Side -->
+            <div class="space-y-4 bg-surface-container/20 p-6 rounded-2xl border border-outline-variant/10 transition-all duration-700"
+                 [class.field-highlight]="showLocationHighlight">
+              
+              <h3 class="text-[11px] font-headline font-bold text-primary flex items-center gap-2 mb-1 uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[16px]">home_pin</span>
+                Dirección
+              </h3>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-[9px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">País</label>
+                  <input type="text" formControlName="country" 
+                         class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all font-body text-xs font-semibold shadow-sm">
+                </div>
+
+                <div>
+                  <label class="block text-[9px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Ciudad</label>
+                  <input type="text" formControlName="city"
+                         class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all font-body text-xs font-semibold shadow-sm">
+                </div>
+
+                <div>
+                   <label class="block text-[9px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Calle y Número</label>
+                   <textarea formControlName="address" rows="2"
+                             class="w-full px-4 py-2 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all font-body text-xs font-semibold shadow-sm resize-none"></textarea>
+                </div>
+
+                <div class="bg-primary/5 p-3 rounded-xl border border-primary/5 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-[16px]">auto_awesome</span>
+                  <p class="text-[10px] text-primary/60 font-medium">Auto-sincronizado con el mapa.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════ SECTION 2: Capacity ═══════════════════════════════ -->
+        <section class="bg-surface-container-lowest rounded-[2rem] border border-outline-variant/20 p-8 md:p-10 mb-8 shadow-[0_10px_30px_rgba(27,28,26,0.02)]">
+          <div class="flex items-center gap-3 mb-8 pb-6 border-b border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-2xl">group</span>
+            <h2 class="text-xl font-headline font-bold text-primary">Capacidad</h2>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Max Guests -->
+            <div class="flex items-center justify-between py-4 border-b border-outline-variant/20">
+              <div>
+                <p class="font-body font-medium text-on-surface">Huéspedes máximos</p>
+                <p class="text-xs font-body text-on-surface-variant">Cantidad máxima de personas</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button type="button" (click)="decrement('maxGuests', 1, 1)" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <span class="font-body font-bold text-lg w-8 text-center text-on-surface">{{editForm.get('maxGuests')?.value}}</span>
+                <button type="button" (click)="increment('maxGuests')" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Bedrooms -->
+            <div class="flex items-center justify-between py-4 border-b border-outline-variant/20">
+              <div>
+                <p class="font-body font-medium text-on-surface">Habitaciones</p>
+                <p class="text-xs font-body text-on-surface-variant">Número de dormitorios</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button type="button" (click)="decrement('bedroomsQuantity')" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <span class="font-body font-bold text-lg w-8 text-center text-on-surface">{{editForm.get('bedroomsQuantity')?.value}}</span>
+                <button type="button" (click)="increment('bedroomsQuantity')" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Beds -->
+            <div class="flex items-center justify-between py-4 border-b border-outline-variant/20">
+              <div>
+                <p class="font-body font-medium text-on-surface">Camas</p>
+                <p class="text-xs font-body text-on-surface-variant">Número total de camas</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button type="button" (click)="decrement('bedsQuantity', 1, 1)" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <span class="font-body font-bold text-lg w-8 text-center text-on-surface">{{editForm.get('bedsQuantity')?.value}}</span>
+                <button type="button" (click)="increment('bedsQuantity')" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Bathrooms -->
+            <div class="flex items-center justify-between py-4">
+              <div>
+                <p class="font-body font-medium text-on-surface">Baños</p>
+                <p class="text-xs font-body text-on-surface-variant">Incluye medios baños</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button type="button" (click)="decrement('bathroomsQuantity', 0.5)" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <span class="font-body font-bold text-lg w-8 text-center text-on-surface">{{editForm.get('bathroomsQuantity')?.value}}</span>
+                <button type="button" (click)="increment('bathroomsQuantity', 0.5)" class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════ SECTION 3: Pricing & Schedule ═══════════════════════════════ -->
+        <section class="bg-surface-container-lowest rounded-[2rem] border border-outline-variant/20 p-8 md:p-10 mb-8 shadow-[0_10px_30px_rgba(27,28,26,0.02)]">
+          <div class="flex items-center gap-3 mb-8 pb-6 border-b border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-2xl">payments</span>
+            <h2 class="text-xl font-headline font-bold text-primary">Precios y horarios</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Price Per Night -->
+            <div>
+              <label class="block text-sm font-medium font-body text-on-surface mb-2">Precio por noche</label>
+              <div class="flex items-center bg-surface rounded-xl border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all overflow-hidden">
+                <span class="pl-4 pr-2 text-on-surface-variant font-bold text-lg">$</span>
+                <input type="number" formControlName="pricePerNight" min="1"
+                       class="flex-1 px-2 py-3.5 bg-transparent border-none outline-none focus:ring-0 font-body text-on-surface">
+              </div>
+            </div>
+
+            <!-- Cleaning Fee -->
+            <div>
+              <label class="block text-sm font-medium font-body text-on-surface mb-2">Tarifa de limpieza</label>
+              <div class="flex items-center bg-surface rounded-xl border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all overflow-hidden">
+                <span class="pl-4 pr-2 text-on-surface-variant font-bold text-lg">$</span>
+                <input type="number" formControlName="cleaningFee" min="0"
+                       class="flex-1 px-2 py-3.5 bg-transparent border-none outline-none focus:ring-0 font-body text-on-surface">
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Check-in Time -->
+            <div>
+              <label class="block text-sm font-medium font-body text-on-surface mb-2">Hora de Check-in</label>
+              <div class="flex items-center bg-surface rounded-xl border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all overflow-hidden">
+                <span class="pl-4 pr-2 material-symbols-outlined text-on-surface-variant">schedule</span>
+                <input type="time" formControlName="checkInTime"
+                       class="flex-1 px-2 py-3.5 bg-transparent border-none outline-none focus:ring-0 font-body text-on-surface">
+              </div>
+            </div>
+
+            <!-- Check-out Time -->
+            <div>
+              <label class="block text-sm font-medium font-body text-on-surface mb-2">Hora de Check-out</label>
+              <div class="flex items-center bg-surface rounded-xl border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all overflow-hidden">
+                <span class="pl-4 pr-2 material-symbols-outlined text-on-surface-variant">schedule</span>
+                <input type="time" formControlName="checkOutTime"
+                       class="flex-1 px-2 py-3.5 bg-transparent border-none outline-none focus:ring-0 font-body text-on-surface">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════ SECTION 4: Media / Images ═══════════════════════════════ -->
+        <section class="bg-surface-container-lowest rounded-[2rem] border border-outline-variant/20 p-8 md:p-10 mb-8 shadow-[0_10px_30px_rgba(27,28,26,0.02)]">
+          <div class="flex items-center gap-3 mb-8 pb-6 border-b border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-2xl">photo_library</span>
+            <h2 class="text-xl font-headline font-bold text-primary">Imágenes</h2>
+          </div>
+
+          <!-- Upload Area -->
+          <div class="w-full p-8 border-2 border-dashed border-outline-variant bg-surface rounded-2xl flex flex-col items-center justify-center gap-4 hover:bg-surface-container-high hover:border-primary/50 transition-all relative cursor-pointer group mb-6">
+            <input type="file" multiple accept="image/*" (change)="onFileSelected($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+            <div class="w-14 h-14 rounded-full bg-surface-container-high group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+              <span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-primary transition-colors">add_photo_alternate</span>
+            </div>
+            <div class="text-center">
+              <h4 class="text-sm font-body font-semibold text-on-surface">Arrastra o haz clic para agregar fotos</h4>
+              <p class="text-xs text-on-surface-variant mt-1">JPG, PNG o WEBP. Máximo 10 MB por imagen.</p>
+            </div>
+          </div>
+
+          <!-- Image Gallery Grid -->
+          <div *ngIf="images.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div *ngFor="let img of images; let i = index" class="relative aspect-square rounded-xl overflow-hidden group shadow-sm border border-outline-variant/20">
+              <img [src]="img.url" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <!-- New badge -->
+              <span *ngIf="img.isNew" class="absolute top-2 left-2 bg-secondary text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Nueva</span>
+              <!-- Delete button -->
+              <button (click)="removeImage(i)" type="button" class="absolute top-2 right-2 w-8 h-8 bg-surface/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm z-20">
+                <span class="material-symbols-outlined text-[16px] text-error">delete</span>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="images.length === 0" class="py-8 flex flex-col items-center justify-center opacity-50">
+            <span class="material-symbols-outlined text-4xl mb-2">image</span>
+            <p class="text-sm font-body">No hay imágenes todavía</p>
+          </div>
+        </section>
+
+      </form>
+
+      <!-- Bottom Save Bar (sticky) -->
+      <div class="sticky bottom-0 left-0 right-0 bg-surface/95 backdrop-blur-md border-t border-outline-variant/30 py-4 px-8 -mx-6 md:-mx-12 lg:-mx-24 flex items-center justify-between z-30 shadow-[0_-10px_20px_rgba(27,28,26,0.03)]">
+        <button (click)="goBack()" class="font-body font-semibold text-on-surface-variant hover:text-primary transition-colors underline underline-offset-4">
+          Descartar cambios
+        </button>
+        <button (click)="saveChanges()" [disabled]="isSaving" class="btn-primary px-10 py-3.5 rounded-xl text-white font-body font-medium text-base transition-all flex items-center gap-2 disabled:opacity-60 disabled:pointer-events-none">
+          <div *ngIf="isSaving" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          <span *ngIf="!isSaving" class="material-symbols-outlined text-[18px]">save</span>
+          {{isSaving ? 'Guardando...' : 'Guardar cambios'}}
+        </button>
+      </div>
+
+    </ng-container>
+
+    <!-- Success Toast -->
+    <div *ngIf="showSavedToast" class="fixed bottom-8 right-8 z-50 bg-primary text-white px-6 py-4 rounded-2xl shadow-2xl shadow-primary/30 flex items-center gap-3 animate-bounce-in">
+      <span class="material-symbols-outlined">check_circle</span>
+      <span class="font-body font-medium">Cambios guardados exitosamente</span>
+    </div>
+
+  </div>
+</div>

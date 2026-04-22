@@ -1,0 +1,23 @@
+<div class="flex space-x-8 overflow-x-auto hide-scrollbar py-4 mb-4 snap-x md:justify-center">
+  <button *ngFor="let cat of categories"
+    (click)="selectCategory(cat.id)"
+    [ngClass]="activeCategoryId === cat.id ? 'active-cat' : 'inactive-cat'"
+    class="category-item flex flex-col items-center gap-2 min-w-[72px] snap-center transition-all duration-300 border-b-2 pb-2">
+    
+    <span class="material-symbols-outlined transition-all duration-300"
+          [ngClass]="activeCategoryId === cat.id ? 'text-2xl text-primary' : 'text-3xl text-on-surface-variant'">
+      {{ cat.icon }}
+    </span>
+    
+    <span *ngIf="activeCategoryId === cat.id" 
+          class="text-[10px] font-bold text-primary uppercase tracking-[0.1em] animate-in fade-in slide-in-from-bottom-1">
+      {{ cat.label }}
+    </span>
+    
+    <span *ngIf="activeCategoryId !== cat.id" 
+          class="text-xs font-medium text-on-surface-variant group-hover:text-primary transition-colors">
+      {{ cat.label }}
+    </span>
+
+  </button>
+</div>

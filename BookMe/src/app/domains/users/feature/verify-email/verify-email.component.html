@@ -1,0 +1,93 @@
+<app-auth-layout tagline="We value your security. Please verify your identity to continue.">
+
+  <div class="verify-container">
+    <!-- ─── Icon ──────────────────────────────────────── -->
+    <div class="verify-icon" [class.success]="isSuccess()">
+      @if (isSuccess()) {
+        <mat-icon class="icon-check">check_circle</mat-icon>
+      } @else {
+        <mat-icon class="icon-mail">mark_email_read</mat-icon>
+      }
+    </div>
+
+    <!-- ─── Header ────────────────────────────────────── -->
+    <div class="form-header">
+      @if (isSuccess()) {
+        <h2 class="form-title success-title">¡Verificación Exitosa!</h2>
+        <p class="form-subtitle">Tu cuenta ha sido verificada. Redirigiendo al inicio de sesión...</p>
+      } @else {
+        <h2 class="form-title">Verifica tu identidad</h2>
+        <p class="form-subtitle">
+          Introduce el código de verificación enviado a
+          @if (email()) {
+            <strong>{{ email() }}</strong>
+          } @else {
+            tu correo electrónico
+          }
+        </p>
+      }
+    </div>
+
+    <!-- ─── Server Error ──────────────────────────────── -->
+    @if (serverError()) {
+      <div class="server-error" role="alert">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ serverError() }}</span>
+      </div>
+    }
+
+    <!-- ─── Code Inputs ───────────────────────────────── -->
+    @if (!isSuccess()) {
+      <div class="code-inputs" (paste)="onPaste($event)" id="verify-code-container">
+        @for (digit of digits(); track $index) {
+          <input
+            #digitInput
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="digit-input"
+            [class.filled]="digit !== ''"
+            [class.error]="serverError()"
+            [value]="digit"
+            (input)="onDigitInput($index, $event)"
+            (keydown)="onKeyDown($index, $event)"
+            [attr.id]="'verify-digit-' + $index"
+            [attr.aria-label]="'Dígito ' + ($index + 1)"
+          />
+        }
+      </div>
+
+      <!-- ─── Submit Button ─────────────────────────────── -->
+      <button class="btn-primary"
+              (click)="onSubmit()"
+              [disabled]="isLoading() || digits().some(d => d === '')"
+              id="verify-submit">
+        @if (isLoading()) {
+          <span class="spinner"></span>
+          Verificando...
+        } @else {
+          Verificar código
+        }
+      </button>
+
+      <!-- ─── Resend ────────────────────────────────────── -->
+      <p class="resend-text">
+        ¿No recibiste nada?
+        @if (resendCooldown() > 0) {
+          <span class="resend-cooldown">Reenviar en {{ resendCooldown() }}s</span>
+        } @else {
+          <button class="resend-btn" (click)="resendCode()" id="verify-resend">
+            Reenviar código
+          </button>
+        }
+      </p>
+    }
+
+    <!-- ─── Back to Login ───────────────────────────────── -->
+    <a routerLink="/auth/login" class="back-link" id="verify-back-to-login">
+      <mat-icon>arrow_back</mat-icon>
+      Volver al inicio de sesión
+    </a>
+  </div>
+
+</app-auth-layout>

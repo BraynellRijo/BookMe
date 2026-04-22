@@ -1,0 +1,50 @@
+/* Edit Listing Component Styles */
+
+.btn-explore {
+    background: linear-gradient(135deg, #1b1c1a 0%, #3a3b38 100%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-explore:hover {
+    box-shadow: 0 15px 30px rgba(27, 28, 26, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: #1b1c1a;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #333;
+}
+
+/* Animations */
+@keyframes bounceIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-bounce-in {
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Hide scrollbar for clean UI */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Form focus effects */
+input:focus, textarea:focus, select:focus {
+    border-color: #1b1c1a !important;
+}
+
+/* Image delete overlay */
+.group:hover .group-hover\:opacity-100 {
+    opacity: 1 !important;
+}

@@ -1,0 +1,124 @@
+@use '../../ui/design-tokens' as t;
+
+// ─── Auth Shell: Split-screen grid ────────────────────────────
+.auth-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: t.$surface;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Hero Side ────────────────────────────────────────────────
+.auth-hero {
+  position: relative;
+  background: url('/images/auth-hero.png') center / cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: t.$spacing-2xl;
+  overflow: hidden;
+
+  // Subtle dark gradient overlay for text legibility
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(22, 52, 45, 0.85) 0%,
+      rgba(22, 52, 45, 0.4) 40%,
+      rgba(22, 52, 45, 0.1) 100%
+    );
+    z-index: 1;
+  }
+
+  @media (max-width: 968px) {
+    display: none;
+  }
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: t.$spacing-lg;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: t.$spacing-sm;
+}
+
+.brand-icon {
+  font-size: 2rem;
+}
+
+.brand-name {
+  font-family: t.$font-headline;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: t.$on-primary;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.hero-tagline {
+  font-family: t.$font-body;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 380px;
+  margin: 0;
+}
+
+// ─── Content Side ─────────────────────────────────────────────
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: t.$spacing-2xl t.$spacing-2xl;
+  background: t.$surface;
+  overflow-y: auto;
+}
+
+.auth-content-inner {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// ─── Footer ───────────────────────────────────────────────────
+.auth-footer {
+  margin-top: auto;
+  padding-top: t.$spacing-2xl;
+  text-align: center;
+  font-family: t.$font-body;
+  font-size: 0.75rem;
+  color: t.$on-surface-variant;
+
+  span {
+    display: block;
+    margin-bottom: t.$spacing-sm;
+  }
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: t.$spacing-lg;
+
+  a {
+    color: t.$on-surface-variant;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: t.$secondary;
+    }
+  }
+}

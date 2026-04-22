@@ -1,0 +1,78 @@
+/* Calendar Customizations for BookMe Host Dashboard */
+::ng-deep .custom-calendar {
+  --mat-datepicker-calendar-header-text-color: #111827;
+  --mat-datepicker-calendar-body-label-text-color: #111827;
+}
+
+/* Weekdays Header */
+::ng-deep .custom-calendar .mat-calendar-table-header th {
+  color: #9CA3AF !important; 
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding-bottom: 12px;
+}
+
+/* Base Font Override */
+::ng-deep .custom-calendar .mat-calendar-body-cell-content {
+  font-family: inherit;
+  font-weight: 500;
+  border-width: 0 !important;
+  transition: all 0.2s ease-out;
+}
+
+/* 
+  State 1: Occupied/Disabled Dates
+  - Matte Gray Background Square
+  - Faint Text
+*/
+::ng-deep .custom-calendar .mat-calendar-body-disabled.is-blocked .mat-calendar-body-cell-content,
+::ng-deep .custom-calendar .mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  background-color: #F3F4F6 !important; 
+  color: #9CA3AF !important;
+  border-radius: 6px !important; 
+  opacity: 0.8;
+  pointer-events: none;
+}
+/* Ensure cell background is transparent so square shape works */
+::ng-deep .custom-calendar .mat-calendar-body-cell:not(.mat-calendar-body-disabled) .mat-calendar-body-cell-content:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* 
+  State 2: Selected Range Start / End
+  - Solid Blue Circle with White text
+*/
+::ng-deep .custom-calendar .mat-calendar-body-selected {
+  background-color: #387478 !important; /* matching secondary or primary brand color */
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(56, 116, 120, 0.4) !important;
+}
+
+/* 
+  State 3: In Range
+  - Lavender Background Bar
+*/
+::ng-deep .custom-calendar .mat-calendar-body-in-range {
+  background-color: #E5E6F6 !important; 
+}
+::ng-deep .custom-calendar .mat-calendar-body-in-range::before {
+  background-color: #E5E6F6 !important;
+}
+
+::ng-deep .custom-calendar .mat-calendar-body-range-start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+::ng-deep .custom-calendar .mat-calendar-body-range-end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+/* Today Overlay (make it subtle) */
+::ng-deep .custom-calendar .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 50% !important;
+}
