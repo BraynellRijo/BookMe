@@ -7,7 +7,7 @@ namespace Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous] 
+    [AllowAnonymous]
     public class ListingsController(IListingService listingService) : ControllerBase
     {
         private readonly IListingService _listingService = listingService;
@@ -37,8 +37,8 @@ namespace Presentation.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<object>> GetMainImage(Guid id)
         {
-                var imageUrl = await _listingService.GetMainImageUrlAsync(id);
-                return Ok(new { url = imageUrl });
+            var imageUrl = await _listingService.GetMainImageUrlAsync(id);
+            return Ok(new { url = imageUrl });
         }
 
         [HttpGet("nearby")]
@@ -114,5 +114,12 @@ namespace Presentation.Controllers
             var listings = await _listingService.FilterByAmenitiesAsync(amenityIds);
             return Ok(listings);
         }
+
+        //[HttpGet("last")]
+        //public async Task<IActionResult> GetLastListing()
+        //{
+        //    var listing = await _listingService.GetLastListingAsync();
+        //    return Ok(listing);
+        //}
     }
 }

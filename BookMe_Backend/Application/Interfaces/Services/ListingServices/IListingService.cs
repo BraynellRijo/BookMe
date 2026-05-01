@@ -6,6 +6,7 @@ namespace Application.Interfaces.Services.ListingServices
 {
     public interface IListingService
     {
+            Task<ListingDTO> GetLastListingAsync();
         Task<ListingDTO> GetListingByIdAsync(Guid id);
         Task<IEnumerable<PhotoUploadResultDTO>> GetListingImagesAsync(Guid listingId);
         Task<string> GetMainImageUrlAsync(Guid listingId);

@@ -47,6 +47,17 @@ namespace Infrastructure.Persistence.Repositories.ListingRepositories
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 
+        public async Task<Listing> GetLastListing()
+        {
+            return await _dbContext.Listings
+                .IgnoreQueryFilters()
+                .Include(l => l.Images)
+                .Include(l => l.Amenities)
+                .Include(l => l.Reviews)
+                .OrderDescending() // Fix it
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Listing?> GetListingForEditAsync(Guid id)
         {
             return await _dbContext.Listings

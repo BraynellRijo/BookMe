@@ -20,6 +20,12 @@ namespace Application.Services.ListingService
         private readonly IFilterListingRepository _filterListingRepository = filterListingRepository;
         private readonly IMapper _mapper = mapper;
 
+        public async Task<ListingDTO> GetLastListingAsync()
+        {
+            var listing = await _queryRepository.GetLastListing();
+            return _mapper.Map<ListingDTO>(listing);
+        }
+
         public async Task<ListingDTO> GetListingByIdAsync(Guid id)
         {
             var listing = await _queryRepository.GetByIdAsync(id);
