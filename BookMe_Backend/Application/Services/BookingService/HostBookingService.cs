@@ -98,6 +98,7 @@ namespace Application.Services.BookingService
             if (bookingId == Guid.Empty)
                 throw new ArgumentException("Invalid booking ID.");
         }
+
         private async Task BookingDTOValidator(BookingDTO booking)
         {
             var validationResult = await _bookingDTOValidator.ValidateAsync(booking);
