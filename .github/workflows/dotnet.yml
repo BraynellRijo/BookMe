@@ -8,15 +8,38 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    defaults: 
+      run:
+        working-directory: BookMe_Backend
+        env:
+          # Cloudinary
+          CLOUDINARYSETTINGS_APIKEY: ${{ secrets.CLOUDINARYSETTINGS_APIKEY }}
+          CLOUDINARYSETTINGS_APISECRET: ${{ secrets.CLOUDINARYSETTINGS_APISECRET }}
+          CLOUDINARYSETTINGS_CLOUDNAME: ${{ secrets.CLOUDINARYSETTINGS_CLOUDNAME }}
+  
+          # Commercial Database
+          CONNECTION_STRING__COMMERCIAL_DB_CONNECTION: ${{ secrets.CONNECTION_STRING__COMMERCIAL_DB_CONNECTION }}
+          
+          # JWT
+          JWTSETTINGS_AUDIENCE: ${{ secrets.JWTSETTINGS_AUDIENCE }}
+          JWTSETTINGS_KEY: ${{ secrets.JWTSETTINGS_KEY }}
+          
+          # SMTP
+          SMTPSETTINGS_PASSWORD: ${{ secrets.SMTPSETTINGS_PASSWORD }}
+          SMTPSETTINGS_PORT: ${{ secrets.SMTPSETTINGS_PORT }}
+          SMTPSETTINGS_SENDEREMAIL: ${{ secrets.SMTPSETTINGS_SENDEREMAIL }}
+          SMTPSETTINGS_SENDERNAME: ${{ secrets.SMTPSETTINGS_SENDERNAME }}
+          SMTPSETTINGS_SERVER: ${{ secrets.SMTPSETTINGS_SERVER }}
+          SMTPSETTINGS_USERNAME: ${{ secrets.SMTPSETTINGS_USERNAME }}
 
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
